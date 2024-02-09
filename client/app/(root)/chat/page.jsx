@@ -1,25 +1,26 @@
 "use client";
-
 import { currentUser, useAuth } from "@clerk/nextjs";
 import ReceivedMessage from "./components/ReceivedMessage";
 import SideBar from "./components/SideBar";
 import YourMessage from "./components/YourMessage";
 import { getUserById } from "@/lib/actions/user.action";
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import io from "socket.io-client";
 import { useRouter } from "next/navigation";
+import translateText from "@/utils/translateText";
+import { LanguageContext } from "../context/SelectLanguage";
 function page() {
   const [user, setUser] = useState(null); // Set initial state to null
   const [dataBaseMessages, setDataBaseMessages] = useState([]);
   const [currentMessage, setCurrentMessage] = useState("");
   const [messageList, setMessageList] = useState([]);
   const [file, setFile] = useState(null); // Set initial state to null
-  const [selectedLang, setSelectedLang] = useState("en");
   const [receiver, setReceiver] = useState(null);
   const { userId } = useAuth();
   const [onlineUsers, setOnlineUsers] = useState(null);
   const socketRef = useRef();
-
+  const [selectedLang, setSelectedLang] = useContext(LanguageContext);
+  console.log("selectedLang", selectedLang);
   const handleUserClick = (clickedUserId) => {
     setReceiver(clickedUserId);
   };
@@ -29,11 +30,18 @@ function page() {
   };
 
   const sendMessage = async () => {
-    console.log("sending message");
-    if (currentMessage.trim() === "" || !receiver || !user || !userId) return;
+    console.log("Sending message...");
+
+    if (currentMessage.trim() === "" || !receiver || !user || !userId) {
+      console.log("Invalid input or missing data. Message not sent.");
+      return;
+    }
+
     if (file) {
       // ... (unchanged code for file handling)
     } else {
+      console.log("Processing text message...");
+
       const messageData = {
         receiver: {
           username: receiver?.username,
@@ -53,15 +61,21 @@ function page() {
       let translatedMessageData = { ...messageData };
 
       if (selectedLang !== "en") {
+        console.log("Translating message...");
         const translatedText = await translateText(
           currentMessage,
           selectedLang,
           "en"
         );
         translatedMessageData.message = translatedText?.translatedText;
+        console.log("Translation complete:", translatedText);
       }
 
+      console.log("Emitting 'send_message' event...");
+
       socketRef.current.emit("send_message", translatedMessageData, (cb) => {
+        console.log("'send_message' event callback received:", cb);
+
         const updatedMessageList = [
           ...messageList,
           {
@@ -71,9 +85,12 @@ function page() {
             playerId: cb.playerId,
           },
         ];
+
+        console.log("Updating message list:", updatedMessageList);
         setMessageList(updatedMessageList);
       });
 
+      console.log("Message sent successfully.");
       setCurrentMessage("");
     }
   };
