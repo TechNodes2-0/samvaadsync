@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { Inter } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
 import "./globals.css";
@@ -7,6 +7,7 @@ import Script from "next/script";
 import { useMemo, useState } from "react";
 import { UserContext } from "./(root)/context/UserContext";
 import { PreferencesContext } from "./(root)/context/PreferencesContext";
+import Alan from "@/components/shared/Alan";
 // import Alan from "@/components/shared/Alan";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -43,17 +44,15 @@ export default function RootLayout({ children }) {
   return (
     <ClerkProvider>
       <UserContext.Provider value={userValue}>
-      <PreferencesContext.Provider value={preferencesValue}>
-      <html lang="en">
-        <Script src="./node_modules/preline/dist/preline.js"></Script>
-        <body className={inter.className}>{children}</body>
-        {/* <Alan /> */}
-        <PrelineScript />
-      </html>
-      </PreferencesContext.Provider>
+        <PreferencesContext.Provider value={preferencesValue}>
+          <html lang="en">
+            <Script src="./node_modules/preline/dist/preline.js"></Script>
+            <body className={inter.className}>{children}</body>
+            <Alan />
+            <PrelineScript />
+          </html>
+        </PreferencesContext.Provider>
       </UserContext.Provider>
-
-</ClerkProvider>
-
+    </ClerkProvider>
   );
 }
