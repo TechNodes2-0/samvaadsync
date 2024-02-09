@@ -16,11 +16,11 @@ const YourMessage = ({
         </div>
         <div className="relative ml-3 text-sm bg-white py-2 px-4 shadow rounded-xl">
           <div>{messageContent}</div>
-        </div>
-        <div className="flex items-center justify-between mt-2 text-xs text-gray-500">
-          <span>{username}</span>
-          {/* <span>{formatTimestamp(timestamp)}</span> */}
-          <span>{timestamp}</span>
+          <div className="flex items-center justify-between mt-2 text-xs text-gray-500">
+            <span>{username}</span>
+            {/* <span>{formatTimestamp(timestamp)}</span> */}
+            <span>{timestamp}</span>
+          </div>
         </div>
       </div>
     </div>

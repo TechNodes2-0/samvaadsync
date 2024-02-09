@@ -15,11 +15,11 @@ const ReceivedMessage = ({
         </div>
         <div className="relative mr-3 text-sm bg-indigo-100 py-2 px-4 shadow rounded-xl">
           <div>{messageContent}</div>
-        </div>
-        <div className="flex items-center justify-between mt-2 text-xs text-gray-500">
-          <span>{username}</span>
-          {/* <span>{formatTimestamp(timestamp)}</span> */}
-          <span>{timestamp}</span>
+          <div className="flex items-center justify-between mt-2 text-xs text-gray-500">
+            <span>{username}</span>
+            {/* <span>{formatTimestamp(timestamp)}</span> */}
+            <span>{timestamp}</span>
+          </div>
         </div>
       </div>
     </div>
