@@ -1,12 +1,8 @@
+import formatTimestamp from "@/utils/formatedTimeStamp";
 import React from "react";
 
-const YourMessage = ({
-  messageContent = "Hey How are you today?",
-  index = 1,
-  timestamp = new Date().toLocaleTimeString(),
-  username = "Anonymous",
-}) => {
-  const firstLetter = username.charAt(0).toUpperCase();
+const YourMessage = ({ messageContent, index, timestamp, username }) => {
+  const firstLetter = username?.charAt(0).toUpperCase();
 
   return (
     <div className="col-start-1 col-end-8 p-3 rounded-lg">
@@ -18,8 +14,7 @@ const YourMessage = ({
           <div>{messageContent}</div>
           <div className="flex items-center justify-between mt-2 text-xs text-gray-500">
             <span>{username}</span>
-            {/* <span>{formatTimestamp(timestamp)}</span> */}
-            <span>{timestamp}</span>
+            <span>{formatTimestamp(timestamp)}</span>
           </div>
         </div>
       </div>
