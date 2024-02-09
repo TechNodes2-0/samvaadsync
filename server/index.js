@@ -4,6 +4,7 @@ const http = require("http");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const { v4: uuidv4 } = require("uuid"); // Import the uuid library for generating unique IDs
+const axios = require("axios");
 const { Server } = require("socket.io");
 require("dotenv").config();
 const server = http.createServer(app);
@@ -26,6 +27,32 @@ let onlineUsers = [];
 io.on("connection", (socket) => {
   console.log(`User Connected: ${socket.id}`);
   // add new user
+  socket.on("new-user-add", (newUserId, username) => {
+    console.log("new user is here!", newUserId, username);
+    if (!onlineUsers.some((user) => user.userId === newUserId)) {
+      // if user is not added before
+      onlineUsers.push({
+        userId: newUserId || "anonymous",
+        username: username || "anonymous",
+        socketId: socket.id,
+      });
+      console.log("new user is here!", onlineUsers);
+    }
+    // send all active users to new user
+    io.emit("get-users", onlineUsers);
+  });
+
+  socket.on("send_message", async (data, cb) => {
+    try {
+      const { author, receiver, message, type, mineType, fileName } = data;
+      console.log("Message Send", data);
+      const playerId = uuidv4();
+      io.to(receiver.socketId).emit("receive_message", data);
+      cb({ ...data, playerId });
+    } catch (error) {
+      console.log("error", error.message);
+    }
+  });
 
   socket.on("disconnect", () => {
     onlineUsers = onlineUsers.filter((user) => user.socketId !== socket.id);
