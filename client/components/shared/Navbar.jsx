@@ -33,7 +33,6 @@ export default function Navbar() {
               data-hs-collapse="#navbar-collapse-with-animation"
               aria-controls="navbar-collapse-with-animation"
               aria-label="Toggle navigation"
-              onClick={toggle}
             >
               <svg
                 className="flex-shrink-0 w-4 h-4 hs-collapse-open:hidden"
@@ -112,7 +111,7 @@ export default function Navbar() {
               <UserButton afterSignOutUrl="/" />
               <div>
                 <SignOutButton>
-                  <button ref={buttonRef}>Sign out</button>
+                  <button>Sign out</button>
                 </SignOutButton>
               </div>
             </SignedIn>

@@ -102,7 +102,7 @@ export default async function page() {
               </li>
               <li className="flex items-center py-2 space-x-2 border-b">
                 <span className="w-24 font-bold">Elsewhere:</span>
-                <a href="#" title="Facebook">
+                <Link href="#" title="Facebook">
                   <svg
                     className="w-5 h-5"
                     id="Layer_1"
@@ -119,7 +119,7 @@ export default async function page() {
                       d="M352.08,326.69l11.23-73.26H293V205.89c0-20,9.81-39.58,41.3-39.58h31.95V104s-29-5-56.73-5c-57.88,0-95.72,35.08-95.72,98.6v55.83H149.48v73.26h64.35V503.78a256.11,256.11,0,0,0,79.2,0V326.69Z"
                     ></path>
                   </svg>
-                </a>
+                </Link>
                 <a href="#" title="Twitter">
                   <svg
                     className="w-5 h-5"
@@ -137,7 +137,7 @@ export default async function page() {
                     ></path>
                   </svg>
                 </a>
-                <a href="#" title="LinkedIn">
+                <Link href="#" title="LinkedIn">
                   <svg
                     className="w-5 h-5"
                     xmlns="http://www.w3.org/2000/svg"
@@ -153,8 +153,8 @@ export default async function page() {
                       fill="#0077b5"
                     ></path>
                   </svg>
-                </a>
-                <a href="#" title="Github">
+                </Link>
+                <Link href="#" title="Github">
                   <svg
                     className="w-5 h-5"
                     xmlns="http://www.w3.org/2000/svg"
@@ -169,7 +169,7 @@ export default async function page() {
                   >
                     <path d="M319.988 7.973C143.293 7.973 0 151.242 0 327.96c0 141.392 91.678 261.298 218.826 303.63 16.004 2.964 21.886-6.957 21.886-15.414 0-7.63-.319-32.835-.449-59.552-89.032 19.359-107.8-37.772-107.8-37.772-14.552-36.993-35.529-46.831-35.529-46.831-29.032-19.879 2.209-19.442 2.209-19.442 32.126 2.245 49.04 32.954 49.04 32.954 28.56 48.922 74.883 34.76 93.131 26.598 2.882-20.681 11.15-34.807 20.315-42.803-71.08-8.067-145.797-35.516-145.797-158.14 0-34.926 12.52-63.485 32.965-85.88-3.33-8.078-14.291-40.606 3.083-84.674 0 0 26.87-8.61 88.029 32.8 25.512-7.075 52.878-10.642 80.056-10.76 27.2.118 54.614 3.673 80.162 10.76 61.076-41.386 87.922-32.8 87.922-32.8 17.398 44.08 6.485 76.631 3.154 84.675 20.516 22.394 32.93 50.953 32.93 85.879 0 122.907-74.883 149.93-146.117 157.856 11.481 9.921 21.733 29.398 21.733 59.233 0 42.792-.366 77.28-.366 87.804 0 8.516 5.764 18.473 21.992 15.354 127.076-42.354 218.637-162.274 218.637-303.582 0-176.695-143.269-319.988-320-319.988l-.023.107z"></path>
                   </svg>
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -234,9 +234,9 @@ export default async function page() {
                 <div className="w-11/12">
                   <p className="text-sm">
                     Message received from
-                    <a href="#" className="font-bold text-blue-600">
+                    <Link href="#" className="font-bold text-blue-600">
                       Cecilia Hendric
-                    </a>
+                    </Link>
                     .
                   </p>
                   <p className="text-xs text-gray-500">1 hour ago</p>
@@ -252,9 +252,9 @@ export default async function page() {
                 <div className="w-11/12">
                   <p className="text-sm">
                     New order received
-                    <a href="#" className="font-bold text-blue-600">
+                    <Link href="#" className="font-bold text-blue-600">
                       #OR9653
-                    </a>
+                    </Link>
                     .
                   </p>
                   <p className="text-xs text-gray-500">2 hours ago</p>
@@ -270,9 +270,9 @@ export default async function page() {
                 <div className="w-11/12">
                   <p className="text-sm">
                     Message received from
-                    <a href="#" className="font-bold text-blue-600">
+                    <Link href="#" className="font-bold text-blue-600">
                       Jane Stillman
-                    </a>
+                    </Link>
                     .
                   </p>
                   <p className="text-xs text-gray-500">2 hours ago</p>
@@ -477,7 +477,7 @@ export default async function page() {
       <div className="p-8 bg-white rounded-lg shadow-xl">
         <div className="flex items-center justify-between">
           <h4 className="text-xl font-bold text-gray-900">Connections (532)</h4>
-          <a href="#" title="View All">
+          <Link href="#" title="View All">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="w-6 h-6 text-gray-500 hover:text-gray-700"
@@ -492,10 +492,10 @@ export default async function page() {
                 d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"
               ></path>
             </svg>
-          </a>
+          </Link>
         </div>
-        <div className="grid grid-cols-2 gap-8 mt-8 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-8">
-          <a
+        {/* <div className="grid grid-cols-2 gap-8 mt-8 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-8">
+          <Link
             href="#"
             className="flex flex-col items-center justify-center text-gray-800 hover:text-blue-600"
             title="View Profile"
@@ -508,8 +508,8 @@ export default async function page() {
             <p className="text-xs text-center text-gray-500">
               UI/UX Design at Upwork
             </p>
-          </a>
-          <a
+          </Link>
+          <Link
             href="#"
             className="flex flex-col items-center justify-center text-gray-800 hover:text-blue-600"
             title="View Profile"
@@ -522,8 +522,8 @@ export default async function page() {
             <p className="text-xs text-center text-gray-500">
               Software Engineer at Facebook
             </p>
-          </a>
-          <a
+          </Link>
+          <Link
             href="#"
             className="flex flex-col items-center justify-center text-gray-800 hover:text-blue-600"
             title="View Profile"
@@ -538,8 +538,8 @@ export default async function page() {
             <p className="text-xs text-center text-gray-500">
               Front-End Developer at Tailwind CSS
             </p>
-          </a>
-          <a
+          </Link>
+          <Link
             href="#"
             className="flex flex-col items-center justify-center text-gray-800 hover:text-blue-600"
             title="View Profile"
@@ -552,8 +552,8 @@ export default async function page() {
             <p className="text-xs text-center text-gray-500">
               System Engineer at Tesla
             </p>
-          </a>
-          <a
+          </Link>
+          <Link
             href="#"
             className="flex flex-col items-center justify-center text-gray-800 hover:text-blue-600"
             title="View Profile"
@@ -566,8 +566,8 @@ export default async function page() {
             <p className="text-xs text-center text-gray-500">
               Software Developer at Upwork
             </p>
-          </a>
-          <a
+          </Link>
+          <Link
             href="#"
             className="flex flex-col items-center justify-center text-gray-800 hover:text-blue-600"
             title="View Profile"
@@ -580,8 +580,8 @@ export default async function page() {
             <p className="text-xs text-center text-gray-500">
               Software Engineer at Laravel
             </p>
-          </a>
-          <a
+          </Link>
+          <Link
             href="#"
             className="flex flex-col items-center justify-center text-gray-800 hover:text-blue-600"
             title="View Profile"
@@ -594,8 +594,8 @@ export default async function page() {
             <p className="text-xs text-center text-gray-500">
               Graphic Designer at Tailwind CSS
             </p>
-          </a>
-          <a
+          </Link>
+          <Link
             href="#"
             className="flex flex-col items-center justify-center text-gray-800 hover:text-blue-600"
             title="View Profile"
@@ -608,8 +608,8 @@ export default async function page() {
             <p className="text-xs text-center text-gray-500">
               Senior Android Developer at Google
             </p>
-          </a>
-          <a
+          </Link>
+          <Link
             href="#"
             className="flex flex-col items-center justify-center text-gray-800 hover:text-blue-600"
             title="View Profile"
@@ -622,13 +622,13 @@ export default async function page() {
             <p className="text-xs text-center text-gray-500">
               Creative Writer at Upwork
             </p>
-          </a>
-          <a
+          </Link>
+          <Link
             href="#"
             className="flex flex-col items-center justify-center text-gray-800 hover:text-blue-600"
             title="View Profile"
           >
-            <img
+            <Image
               src="https://vojislavd.com/ta-template-demo/assets/img/connections/connection10.jpg"
               className="w-16 rounded-full"
             />
@@ -636,7 +636,7 @@ export default async function page() {
             <p className="text-xs text-center text-gray-500">
               Co-Founder at Alpine.js
             </p>
-          </a>
+          </Link>
           <a
             href="#"
             className="flex flex-col items-center justify-center text-gray-800 hover:text-blue-600"
@@ -728,7 +728,7 @@ export default async function page() {
               Team Lead at Facebook
             </p>
           </a>
-        </div>
+        </div> */}
       </div>
     </div>
   );

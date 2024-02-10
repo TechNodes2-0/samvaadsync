@@ -12,7 +12,7 @@ import ReactMarkdown from "react-markdown";
 import { LanguageContext } from "../context/SelectLanguage";
 import { getMessages } from "@/lib/actions/message.action";
 import getAnswer from "@/lib/actions/bard.action";
-// import getAnswer from "@/lib/actions/bard.action";
+// import getAnswer from "@/l
 function page() {
   const [user, setUser] = useState(null); // Set initial state to null
   const [dataBaseMessages, setDataBaseMessages] = useState([]);
@@ -220,7 +220,7 @@ function page() {
 
   return (
     <div className="flex h-screen antialiased text-gray-800">
-      <div className="flex flex-row h-full w-full overflow-x-hidden">
+      <div className="flex flex-row w-full h-full overflow-x-hidden">
         <SideBar
           onlineUsers={onlineUsers}
           author={user?.username}
@@ -245,8 +245,14 @@ function page() {
               handleAttachmentClick={handleAttachmentClick}
             />
           ) : (
-            <div className="flex flex-col justify-center items-center h-full p-4 bg-gray-100 rounded-2xl w-screen font-semibold text-md">
-            <img className="w-20 " src="https://th.bing.com/th/id/OIP.az5pc-KWVPb_YacejN_M7AHaHa?w=168&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7" alt="" />
+            <div className="flex flex-col items-center justify-center w-screen h-full p-4 font-semibold bg-gray-100 rounded-2xl text-md">
+              <Image
+                className="w-20 "
+                src="https://th.bing.com/th/id/OIP.az5pc-KWVPb_YacejN_M7AHaHa?w=168&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7"
+                alt="image"
+                width={100}
+                hight={100}
+              />
               Select Conversation to start chat
             </div>
           )}
@@ -348,7 +354,7 @@ const ChatInterface = ({
       </div>
       <div className="ml-4">
         <button
-          className="flex items-center justify-center bg-indigo-500 hover:bg-indigo-600 rounded-xl text-white px-4 py-3 flex-shrink-0 cursor-pointer"
+          className="flex items-center justify-center flex-shrink-0 px-4 py-3 text-white bg-indigo-500 cursor-pointer hover:bg-indigo-600 rounded-xl"
           onClick={sendMessage}
         >
           <svg
@@ -369,7 +375,7 @@ const ChatInterface = ({
       </div>
       <div className="ml-4">
         <button
-          className="flex items-center justify-center bg-red-500 hover:bg-red-600 rounded-xl text-white px-4 py-3 flex-shrink-0 cursor-pointer"
+          className="flex items-center justify-center flex-shrink-0 px-4 py-3 text-white bg-red-500 cursor-pointer hover:bg-red-600 rounded-xl"
           onClick={clearReceiverSocketId}
         >
           <svg
