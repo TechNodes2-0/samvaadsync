@@ -1,6 +1,6 @@
-import mongoose, { Schema, models } from "mongoose";
+const mongoose = require("mongoose");
 
-const MessageSchema = new Schema({
+const MessageSchema = new mongoose.Schema({
   author: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
@@ -29,6 +29,4 @@ const MessageSchema = new Schema({
   },
 });
 
-const Message = models.Message || mongoose.model("Message", MessageSchema);
-
-export default Message;
+module.exports = mongoose.model("Message", MessageSchema);

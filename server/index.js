@@ -9,6 +9,8 @@ const { Server } = require("socket.io");
 require("dotenv").config();
 const server = http.createServer(app);
 const tokenRoutes = require("./routes/tokenRoutes");
+const connectDB = require("./connection/db");
+const { addMessage } = require("./controllers/message");
 
 const io = new Server(server, {
   cors: {
@@ -79,6 +81,8 @@ io.on("connection", (socket) => {
   socket.on("send_message", async (data, cb) => {
     try {
       const { author, receiver, message, type, mineType, fileName } = data;
+      const addMessageResponse = await addMessage(author, receiver, message);
+      console.log("addMessageResponse", addMessageResponse);
       console.log("Message Send", data);
       const playerId = uuidv4();
       io.to(receiver.socketId).emit("receive_message", data);
@@ -107,7 +111,7 @@ io.on("connection", (socket) => {
 
 server.listen(5000, async () => {
   try {
-    // await connectDB(process.env.MONGODB_URL);
+    await connectDB(process.env.MONGODB_URL);
     console.log("Connected to the database");
   } catch (err) {
     console.error("Error connecting to the database:", err);

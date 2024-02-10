@@ -9,6 +9,7 @@ import io from "socket.io-client";
 import { useRouter } from "next/navigation";
 import translateText from "@/utils/translateText";
 import { LanguageContext } from "../context/SelectLanguage";
+import { getMessages } from "@/lib/actions/message.action";
 function page() {
   const [user, setUser] = useState(null); // Set initial state to null
   const [dataBaseMessages, setDataBaseMessages] = useState([]);
@@ -20,7 +21,8 @@ function page() {
   const [onlineUsers, setOnlineUsers] = useState(null);
   const socketRef = useRef();
   const [selectedLang, setSelectedLang] = useContext(LanguageContext);
-  console.log("selectedLang", selectedLang);
+  const [loadingMessages, setLoadingMessages] = useState(true);
+
   const handleUserClick = (clickedUserId) => {
     setReceiver(clickedUserId);
   };
@@ -96,12 +98,68 @@ function page() {
   };
 
   useEffect(() => {
+    const fetchMessages = async () => {
+      try {
+        console.log("Fetching messages...");
+        setLoadingMessages(true);
+        const messages = await getMessages(user?._id);
+        console.log("Fetched messages:", messages);
+
+        const translatedMessages = await Promise.all(
+          messages.map(async (message) => {
+            if (message.type === "text" && selectedLang !== "en") {
+              console.log(
+                "Translating message:",
+                message.message,
+                "from 'en' to",
+                selectedLang
+              );
+              const translatedText = await translateText(
+                message.message,
+                "en",
+                selectedLang
+              );
+              message.message = translatedText?.translatedText;
+              console.log("Translation complete:", translatedText);
+            }
+            return message;
+          })
+        );
+
+        console.log(
+          "Setting translated messages to state:",
+          translatedMessages
+        );
+        setMessageList(translatedMessages);
+      } catch (e) {
+        console.error("Error fetching messages:", e);
+        throw new Error("Error fetching messages", e.message);
+      } finally {
+        console.log("Finished fetching and processing messages.");
+        setLoadingMessages(false);
+      }
+    };
+
     const fetchUser = async () => {
+      console.log("Fetching user...");
       const fetchedUser = await getUserById(userId);
+      console.log("Fetched user:", fetchedUser);
       setUser(fetchedUser);
     };
+
+    console.log(
+      "Starting useEffect for userId and selectedLang:",
+      userId,
+      selectedLang
+    );
+
     fetchUser();
-  }, [userId]);
+    fetchMessages();
+
+    return () => {
+      console.log("Cleaning up useEffect...");
+    };
+  }, [userId, selectedLang]);
 
   useEffect(() => {
     socketRef.current = io("http://localhost:5000");
@@ -148,8 +206,10 @@ function page() {
             <ChatInterface
               messageList={messageList.filter(
                 (messageList) =>
-                  messageList.author.username === receiver.username ||
-                  messageList.receiver.username === receiver.username
+                  (messageList.author.username === receiver.username &&
+                    messageList.receiver.username === user.username) ||
+                  (messageList.receiver.username === receiver.username &&
+                    messageList.author.username === user.username)
               )}
               currentMessage={currentMessage}
               setCurrentMessage={setCurrentMessage}
