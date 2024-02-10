@@ -82,10 +82,15 @@ io.on("connection", (socket) => {
   socket.on("send_message", async (data, cb) => {
     try {
       const { author, receiver, message, type, mineType, fileName } = data;
-      const addMessageResponse = await addMessage(author, receiver, message);
-      console.log("addMessageResponse", addMessageResponse);
-      console.log("Message Send", data);
       const playerId = uuidv4();
+      const secretKey = receiver._id + author._id;
+      console.log("This is secretkey", receiver._id, author._id, secretKey);
+      const encryptedData = CryptoJS.AES.encrypt(message, secretKey);
+      const addMessageResponse = await addMessage(
+        author,
+        receiver,
+        encryptedData.toString()
+      );
       io.to(receiver.socketId).emit("receive_message", data);
       cb({ ...data, playerId });
     } catch (error) {
