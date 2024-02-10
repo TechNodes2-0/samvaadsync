@@ -1,5 +1,4 @@
 "use client";
-import { useRef, useffect } from "react";
 import { NavLinks } from "@/constants";
 import React, { useContext, useState } from "react";
 import Link from "next/link";
@@ -10,7 +9,6 @@ import { LanguageContext } from "@/app/(root)/context/SelectLanguage";
 import { SignedOut, SignedIn, SignOutButton } from "@clerk/nextjs";
 
 export default function Navbar() {
-  const [isOpen, setOpen] = useState(false);
   const [selectedLang, setSelectedLang] = useContext(LanguageContext);
 
   return (
