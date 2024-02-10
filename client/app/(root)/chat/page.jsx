@@ -127,7 +127,6 @@ function page() {
     const fetchMessages = async () => {
       try {
         console.log("Fetching messages...");
-        setLoadingMessages(true);
         const messages = await getMessages(user?._id);
         console.log("Fetched messages:", messages);
 
@@ -162,15 +161,12 @@ function page() {
         throw new Error("Error fetching messages", e.message);
       } finally {
         console.log("Finished fetching and processing messages.");
-        setLoadingMessages(false);
       }
     };
 
     const fetchUser = async () => {
       console.log("Fetching user...");
-      setLoadingMessages(true);
       const fetchedUser = await getUserById(userId);
-      setLoadingMessages(false);
       console.log("Fetched user:", fetchedUser);
       setUser(fetchedUser);
     };
@@ -220,7 +216,6 @@ function page() {
       socketRef.current.off("receive_message", handleReceiveMessage);
     };
   }, [selectedLang, socketRef.current]);
-  if (loadingMessages) return <div>Loading...</div>;
 
   return (
     <div className="flex h-screen antialiased text-gray-800">
