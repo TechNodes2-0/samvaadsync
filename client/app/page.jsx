@@ -7,12 +7,13 @@ import Navbar from "@/components/shared/Navbar";
 
 export default function page() {
   return (
+    
     <div>
       <Navbar />
 
       <HeroSection />
       <CardBlog />
-      <FAQ />
+      {/* <FAQ /> */}
       <Footer />
     </div>
   );

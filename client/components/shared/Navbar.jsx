@@ -1,10 +1,18 @@
 "use client";
 import { useRef, useEffect } from "react";
 import { NavLinks } from "@/constants";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Link from "next/link";
 import HighitlightText from "./HighitlightText";
 import { UserButton } from "@clerk/nextjs";
+
+import { LanguageContext } from "@/app/(root)/context/SelectLanguage";
+
+export default function Navbar() {
+  const [isOpen, setOpen] = useState(false);
+  const [selectedLang, setSelectedLang] = useContext(LanguageContext);
+
+
 import { SignedOut,SignedIn,SignOutButton} from "@clerk/nextjs";
 import { useRouter, useSearchParams } from "next/navigation";
 export default function Navbar() {
@@ -13,6 +21,7 @@ export default function Navbar() {
   const OUT = searchParams.get("signout");
   console.log(OUT);
   const buttonRef = useRef(null);
+
   const toggle = () => {
     setOpen(!isOpen);
   };
@@ -95,6 +104,31 @@ export default function Navbar() {
                 {link.title}
               </Link>
             ))}
+
+            <div className="flex flex-col gap-5 mt-5 sm:flex-row sm:items-center sm:justify-end sm:mt-0 sm:ps-5">
+              <label
+                htmlFor="countries"
+                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >
+                Select an option
+              </label>
+              <select
+                value={selectedLang}
+                defaultValue="en"
+                id="countries"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                onChange={(e) => setSelectedLang(e.target.value)}
+              >
+                <option value="en" defaultValue>
+                  English (Default)
+                </option>
+                <option value="ja">日本語 (Japanese)</option>
+                <option value="hi">हिन्दी (Hindi)</option>
+                <option value="gu">ગુજરાતી (Gujarati)</option>
+                <option value="pa">ਪੰਜਾਬੀ (Punjabi)</option>
+              </select>
+            </div>
+
               <SignedIn>
               <UserButton afterSignOutUrl="/" />
               <div>
@@ -103,6 +137,7 @@ export default function Navbar() {
               </SignOutButton>
             </div>
               </SignedIn>
+
 
             <div>
               <div
