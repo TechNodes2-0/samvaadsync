@@ -4,7 +4,6 @@ import User from "../../database/user.model";
 import { revalidatePath } from "next/cache";
 
 export const createUser = async (user) => {
-  console.log("Printing from create user", user);
   try {
     await connectToDatabase();
     const newUser = await User.create(user);
@@ -45,11 +44,9 @@ export async function deleteUser(clerkId) {
 export async function getUserById(clerkId) {
   try {
     connectToDatabase();
-    console.log("Printing from clerkid", clerkId);
     const user = await User.findOne({ clerkId });
-    console.log("Printing from user", user);
+    console.log(user);
     if (!user) throw new Error("User not found");
-    console.log("Action", user);
     return JSON.parse(JSON.stringify(user));
   } catch (error) {
     console.log(error);
