@@ -1,5 +1,5 @@
 "use client";
-import { currentUser, useAuth } from "@clerk/nextjs";
+import { useAuth } from "@clerk/nextjs";
 import ReceivedMessage from "./components/ReceivedMessage";
 import SideBar from "./components/SideBar";
 import YourMessage from "./components/YourMessage";
@@ -12,7 +12,7 @@ import ReactMarkdown from "react-markdown";
 import { LanguageContext } from "../context/SelectLanguage";
 import { getMessages } from "@/lib/actions/message.action";
 import getAnswer from "@/lib/actions/bard.action";
-// import getAnswer from "@/l
+import Image from "next/image";
 function page() {
   const [user, setUser] = useState(null); // Set initial state to null
   const [dataBaseMessages, setDataBaseMessages] = useState([]);
