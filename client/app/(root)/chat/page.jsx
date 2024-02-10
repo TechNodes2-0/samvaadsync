@@ -13,6 +13,7 @@ import { LanguageContext } from "../context/SelectLanguage";
 import { getMessages } from "@/lib/actions/message.action";
 import getAnswer from "@/lib/actions/bard.action";
 import Image from "next/image";
+import { set } from "mongoose";
 function page() {
   const [user, setUser] = useState(null); // Set initial state to null
   const [dataBaseMessages, setDataBaseMessages] = useState([]);
@@ -167,7 +168,9 @@ function page() {
 
     const fetchUser = async () => {
       console.log("Fetching user...");
+      setLoadingMessages(true);
       const fetchedUser = await getUserById(userId);
+      setLoadingMessages(false);
       console.log("Fetched user:", fetchedUser);
       setUser(fetchedUser);
     };
@@ -217,6 +220,7 @@ function page() {
       socketRef.current.off("receive_message", handleReceiveMessage);
     };
   }, [selectedLang, socketRef.current]);
+  if (loadingMessages) return <div>Loading...</div>;
 
   return (
     <div className="flex h-screen antialiased text-gray-800">
