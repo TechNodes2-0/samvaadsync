@@ -88,7 +88,7 @@ const CardBlog = () => {
                   href={""}
                   className="inline-flex items-center mt-3 text-blue-400"
                 >
-                  Learn More
+                  Learn Mores
                   <svg
                     fill="none"
                     stroke="currentColor"
