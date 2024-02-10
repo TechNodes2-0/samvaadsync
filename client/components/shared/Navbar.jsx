@@ -1,16 +1,30 @@
 "use client";
+import { useRef, useEffect } from "react";
 import { NavLinks } from "@/constants";
 import React, { useState } from "react";
 import Link from "next/link";
 import HighitlightText from "./HighitlightText";
 import { UserButton } from "@clerk/nextjs";
-
+import { SignOutButton } from "@clerk/nextjs";
+import { useRouter, useSearchParams } from "next/navigation";
 export default function Navbar() {
   const [isOpen, setOpen] = useState(false);
-
+  const searchParams = useSearchParams();
+  const OUT = searchParams.get("signout");
+  console.log(OUT);
+  const buttonRef = useRef(null);
   const toggle = () => {
     setOpen(!isOpen);
   };
+  const router = useRouter();
+  useEffect(() => {
+    if (OUT === "true" && buttonRef.current) {
+      buttonRef.current.click();
+
+      router.back("/");
+    }
+  }, [OUT]);
+
   return (
     <header className="z-50 flex flex-wrap w-full py-4 text-sm bg-white sm:justify-start sm:flex-nowrap dark:bg-gray-800">
       <nav
@@ -160,6 +174,11 @@ export default function Navbar() {
               </div>
             </div>
             <UserButton afterSignOutUrl="/" />
+            <div>
+              <SignOutButton>
+                <button ref={buttonRef}>Sign out</button>
+              </SignOutButton>
+            </div>
           </div>
         </div>
       </nav>
