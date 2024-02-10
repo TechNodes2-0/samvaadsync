@@ -187,7 +187,7 @@ function page() {
   }, [userId, selectedLang]);
 
   useEffect(() => {
-    socketRef.current = io("http://localhost:5000");
+    socketRef.current = io("https://htf-socket-server.onrender.com");
     socketRef.current.emit("new-user-add", user?._id, user?.username);
     socketRef.current.on("get-users", (users) => {
       setOnlineUsers(users);
