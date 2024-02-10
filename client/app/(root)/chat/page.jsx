@@ -251,7 +251,7 @@ function page() {
                 src="https://th.bing.com/th/id/OIP.az5pc-KWVPb_YacejN_M7AHaHa?w=168&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7"
                 alt="image"
                 width={100}
-                hight={100}
+                height={100}
               />
               Select Conversation to start chat
             </div>
