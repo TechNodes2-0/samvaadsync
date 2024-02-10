@@ -23,16 +23,16 @@ export default async function page() {
         </div>
         <div className="flex flex-col ml-10 -mt-20 items-left">
           <Image
-            src={user.picture}
+            src={user?.picture}
             className="w-40 border-4 border-white rounded-full"
             width={100}
             height={100}
           />
-          <p className="text-2xl">{user.name}</p>
+          <p className="text-2xl">{user?.name}</p>
 
-          <p className="text-gray-700">{user.email}</p>
+          <p className="text-gray-700">{user?.email}</p>
           <p className="text-sm text-gray-500">
-            {getTimeSinceJoining(user.joinedAt)}
+            {getTimeSinceJoining(user?.joinedAt)}
           </p>
         </div>
         <div className="flex flex-col items-start justify-start flex-1 px-8 mt-2">
@@ -74,7 +74,7 @@ export default async function page() {
             <ul className="mt-2 text-gray-700">
               <li className="flex py-2 border-y">
                 <span className="w-24 font-bold">Full name </span>
-                <span className="text-gray-700">{user.name}</span>
+                <span className="text-gray-700">{user?.name}</span>
               </li>
               <li className="flex py-2 border-b">
                 <span className="w-24 font-bold">Birthday:</span>
@@ -90,7 +90,7 @@ export default async function page() {
               </li>
               <li className="flex py-2 border-b">
                 <span className="w-24 font-bold">Email:</span>
-                <span className="text-gray-700">{user.email}</span>
+                <span className="text-gray-700">{user?.email}</span>
               </li>
               <li className="flex py-2 border-b">
                 <span className="w-24 font-bold">Location:</span>

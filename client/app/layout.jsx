@@ -10,10 +10,6 @@ import { PreferencesContext } from "./(root)/context/PreferencesContext";
 
 import { LanguageContext } from "@/app/(root)/context/SelectLanguage";
 
-import Alan from "@/components/shared/Alan";
-
-// import Alan from "@/components/shared/Alan";
-
 const inter = Inter({ subsets: ["latin"] });
 
 // export const metadata = {
@@ -47,7 +43,7 @@ export default function RootLayout({ children }) {
   const userValue = useMemo(() => ({ user, setUser }), [user, setUser]);
   const [selectedLang, setSelectedLang] = useState("en");
   return (
- <ClerkProvider>
+    <ClerkProvider>
       <UserContext.Provider value={userValue}>
         <PreferencesContext.Provider value={preferencesValue}>
           <LanguageContext.Provider value={[selectedLang, setSelectedLang]}>
@@ -61,6 +57,5 @@ export default function RootLayout({ children }) {
         </PreferencesContext.Provider>
       </UserContext.Provider>
     </ClerkProvider>
-
   );
 }
