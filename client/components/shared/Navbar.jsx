@@ -45,7 +45,7 @@ export default function Navbar() {
             className="flex-none text-xl font-semibold dark:text-white"
             href="/"
           >
-            <HighitlightText text="CulturalConnect" />
+            <HighitlightText text="SamvaadSync" />
           </Link>
           <div className="sm:hidden">
             <button
