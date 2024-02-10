@@ -13,7 +13,7 @@ export default function page() {
 
       <HeroSection />
       <CardBlog />
-      <FAQ />
+      {/* <FAQ /> */}
       <Footer />
     </div>
   );

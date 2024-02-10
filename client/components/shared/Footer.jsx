@@ -14,7 +14,7 @@ export default function Footer() {
           >
             <h2 className="text-2xl sm:text-3xl lg:text-4xl">
               {" "}
-              <HighitlightText text="CulturalConnect" />
+              <HighitlightText text="SamvaadSync" />
             </h2>
           </Link>
           <p className="mt-1 text-sm text-gray-500">
@@ -137,7 +137,7 @@ export default function Footer() {
       <div className="bg-gray-800 bg-opacity-75">
         <div className="container flex flex-col flex-wrap px-5 py-4 mx-auto sm:flex-row">
           <p className="text-sm text-center text-gray-400 sm:text-left">
-            © 2020 CulturalConnect —
+            © 2020 SamvaadSync —
             <Link
               href="https://twitter.com/Tech_Nodes_"
               rel="noopener noreferrer"
