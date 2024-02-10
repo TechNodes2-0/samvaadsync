@@ -1,0 +1,35 @@
+import { IAudioSource } from "../common/Exports";
+import { CancellationErrorCode, CancellationReason, VoiceProfileClient, VoiceProfileEnrollmentResult, VoiceProfilePhraseResult, VoiceProfileResult, VoiceProfileType, VoiceProfile } from "../sdk/Exports";
+import { ServiceRecognizerBase } from "./Exports";
+import { IAuthentication } from "./IAuthentication";
+import { IConnectionFactory } from "./IConnectionFactory";
+import { RecognizerConfig } from "./RecognizerConfig";
+import { SpeechConnectionMessage } from "./SpeechConnectionMessage.Internal";
+export declare class VoiceServiceRecognizer extends ServiceRecognizerBase {
+    private privSpeakerAudioSource;
+    private privDeferralMap;
+    private privExpectedProfileId;
+    constructor(authentication: IAuthentication, connectionFactory: IConnectionFactory, audioSource: IAudioSource, recognizerConfig: RecognizerConfig, recognizer: VoiceProfileClient);
+    set SpeakerAudioSource(audioSource: IAudioSource);
+    protected processTypeSpecificMessages(connectionMessage: SpeechConnectionMessage): Promise<boolean>;
+    protected cancelRecognition(sessionId: string, requestId: string, cancellationReason: CancellationReason, errorCode: CancellationErrorCode, error: string): void;
+    createProfile(profileType: VoiceProfileType, locale: string): Promise<string[]>;
+    resetProfile(profile: VoiceProfile): Promise<VoiceProfileResult>;
+    deleteProfile(profile: VoiceProfile): Promise<VoiceProfileResult>;
+    retrieveEnrollmentResult(profile: VoiceProfile): Promise<VoiceProfileEnrollmentResult>;
+    getAllProfiles(profileType: VoiceProfileType): Promise<VoiceProfileEnrollmentResult[]>;
+    getActivationPhrases(profileType: VoiceProfileType, lang: string): Promise<VoiceProfilePhraseResult>;
+    enrollProfile(profile: VoiceProfile): Promise<VoiceProfileEnrollmentResult>;
+    private sendPreAudioMessages;
+    private sendPhrasesRequest;
+    private sendCreateProfile;
+    private sendCommonRequest;
+    private sendBaseRequest;
+    private extractSpeakerContext;
+    private handlePhrasesResponse;
+    private handleCreateResponse;
+    private handleResultResponse;
+    private handleFetchResponse;
+    private enrollmentReasonFrom;
+    private scenarioFrom;
+}

@@ -8,14 +8,12 @@ import { UserButton } from "@clerk/nextjs";
 
 import { LanguageContext } from "@/app/(root)/context/SelectLanguage";
 
-export default function Navbar() {
-  const [isOpen, setOpen] = useState(false);
-  const [selectedLang, setSelectedLang] = useContext(LanguageContext);
-
-
 import { SignedOut,SignedIn,SignOutButton} from "@clerk/nextjs";
 import { useRouter, useSearchParams } from "next/navigation";
 export default function Navbar() {
+
+  const [selectedLang, setSelectedLang] = useContext(LanguageContext);
+
   const [isOpen, setOpen] = useState(false);
   const searchParams = useSearchParams();
   const OUT = searchParams.get("signout");
