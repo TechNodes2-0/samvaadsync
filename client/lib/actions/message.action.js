@@ -3,6 +3,7 @@
 import { connectToDatabase } from "../database";
 import Message from "@/database/messages.model";
 import { revalidatePath } from "next/cache";
+import CryptoJS from "crypto-js";
 
 export const getMessages = async (authorId) => {
   try {
@@ -13,7 +14,29 @@ export const getMessages = async (authorId) => {
     const populatedMessages = await Message.populate(messages, {
       path: "author receiver",
     });
-    return JSON.parse(JSON.stringify(populatedMessages));
+
+    const decryptedMessages = populatedMessages.map((message) => {
+      const secretKey = message.receiver._id + message.author._id;
+      console.log(
+        "secretKey",
+        message.receiver._id,
+        message.author._id,
+        secretKey
+      );
+
+      if (message.message) {
+        const decryptedData = CryptoJS.AES.decrypt(
+          message.message,
+          secretKey
+        ).toString(CryptoJS.enc.Utf8);
+
+        message.message = decryptedData;
+      }
+
+      return message;
+    });
+    console.log("decryptedMessages", decryptedMessages);
+    return JSON.parse(JSON.stringify(decryptedMessages));
   } catch (error) {
     console.log("Error getting messages", error);
   }
