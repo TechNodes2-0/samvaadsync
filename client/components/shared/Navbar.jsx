@@ -8,20 +8,10 @@ import { UserButton } from "@clerk/nextjs";
 
 import { LanguageContext } from "@/app/(root)/context/SelectLanguage";
 import { SignedOut, SignedIn, SignOutButton } from "@clerk/nextjs";
-import { useRouter } from "next/navigation";
 
 export default function Navbar() {
   const [isOpen, setOpen] = useState(false);
   const [selectedLang, setSelectedLang] = useContext(LanguageContext);
-
-  const OUT = searchParams.get("signout");
-  console.log(OUT);
-  const buttonRef = useRef(null);
-
-  const toggle = () => {
-    setOpen(!isOpen);
-  };
-  const router = useRouter();
 
   return (
     <header className="z-50 flex flex-wrap w-full py-4 text-sm bg-white sm:justify-start sm:flex-nowrap dark:bg-gray-800">
