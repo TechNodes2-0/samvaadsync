@@ -7,14 +7,12 @@ import HighitlightText from "./HighitlightText";
 import { UserButton } from "@clerk/nextjs";
 
 import { LanguageContext } from "@/app/(root)/context/SelectLanguage";
-
-import { SignedOut,SignedIn,SignOutButton} from "@clerk/nextjs";
+import { SignedOut, SignedIn, SignOutButton } from "@clerk/nextjs";
 import { useRouter, useSearchParams } from "next/navigation";
+
 export default function Navbar() {
-
-  const [selectedLang, setSelectedLang] = useContext(LanguageContext);
-
   const [isOpen, setOpen] = useState(false);
+  const [selectedLang, setSelectedLang] = useContext(LanguageContext);
   const searchParams = useSearchParams();
   const OUT = searchParams.get("signout");
   console.log(OUT);
@@ -43,7 +41,7 @@ export default function Navbar() {
             className="flex-none text-xl font-semibold dark:text-white"
             href="/"
           >
-            <HighitlightText text="CulturalConnect" />
+            <HighitlightText text="SamvaadSync" />
           </Link>
           <div className="sm:hidden">
             <button
@@ -127,15 +125,14 @@ export default function Navbar() {
               </select>
             </div>
 
-              <SignedIn>
+            <SignedIn>
               <UserButton afterSignOutUrl="/" />
               <div>
-              <SignOutButton>
-                <button ref={buttonRef}>Sign out</button>
-              </SignOutButton>
-            </div>
-              </SignedIn>
-
+                <SignOutButton>
+                  <button ref={buttonRef}>Sign out</button>
+                </SignOutButton>
+              </div>
+            </SignedIn>
 
             <div>
               <div
@@ -214,18 +211,17 @@ export default function Navbar() {
                 </div>
               </div>
             </div>
-           
+
             <SignedOut>
-          <div className="flex items-center space-x-4">
-            <Link className="text-base" href="/sign-in">
-              Login
-            </Link>
-            <button className="inline-flex items-center justify-center h-10 px-4 py-2 text-sm font-medium transition-colors bg-blue-600 rounded-md whitespace-nowrap ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 text-primary-foreground hover:bg-blue-700">
-              Sign Up
-            </button>
-          </div>
-        </SignedOut>
-       
+              <div className="flex items-center space-x-4">
+                <Link className="text-base" href="/sign-in">
+                  Login
+                </Link>
+                <button className="inline-flex items-center justify-center h-10 px-4 py-2 text-sm font-medium transition-colors bg-blue-600 rounded-md whitespace-nowrap ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 text-primary-foreground hover:bg-blue-700">
+                  Sign Up
+                </button>
+              </div>
+            </SignedOut>
           </div>
         </div>
       </nav>

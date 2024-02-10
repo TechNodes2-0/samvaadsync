@@ -1,8 +1,9 @@
 import mongoose, { Schema, models } from "mongoose";
 
-const MessageSchema = new Schema({
+const MessageSchema = new mongoose.Schema({
   author: {
     type: mongoose.Schema.Types.ObjectId,
+
     ref: "User",
   },
   receiver: {
