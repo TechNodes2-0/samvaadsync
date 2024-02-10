@@ -1,5 +1,5 @@
 "use client";
-import { useRef, useEffect } from "react";
+import { useRef, useffect } from "react";
 import { NavLinks } from "@/constants";
 import React, { useContext, useState } from "react";
 import Link from "next/link";
@@ -8,12 +8,12 @@ import { UserButton } from "@clerk/nextjs";
 
 import { LanguageContext } from "@/app/(root)/context/SelectLanguage";
 import { SignedOut, SignedIn, SignOutButton } from "@clerk/nextjs";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 export default function Navbar() {
   const [isOpen, setOpen] = useState(false);
   const [selectedLang, setSelectedLang] = useContext(LanguageContext);
-  const searchParams = useSearchParams();
+
   const OUT = searchParams.get("signout");
   console.log(OUT);
   const buttonRef = useRef(null);
@@ -22,13 +22,6 @@ export default function Navbar() {
     setOpen(!isOpen);
   };
   const router = useRouter();
-  useEffect(() => {
-    if (OUT === "true" && buttonRef.current) {
-      buttonRef.current.click();
-
-      router.back("/");
-    }
-  }, [OUT]);
 
   return (
     <header className="z-50 flex flex-wrap w-full py-4 text-sm bg-white sm:justify-start sm:flex-nowrap dark:bg-gray-800">
