@@ -38,7 +38,10 @@ const CardBlog = () => {
                   Blue bottle crucifix vinyl post-ironic four dollar toast vegan
                   taxidermy. Gastropub indxgo juice poutine.
                 </p>
-                <Link className="inline-flex items-center mt-3 text-blue-400">
+                <Link
+                  href={""}
+                  className="inline-flex items-center mt-3 text-blue-400"
+                >
                   Learn More
                   <svg
                     fill="none"
@@ -81,8 +84,11 @@ const CardBlog = () => {
                   Blue bottle crucifix vinyl post-ironic four dollar toast vegan
                   taxidermy. Gastropub indxgo juice poutine.
                 </p>
-                <Link className="inline-flex items-center mt-3 text-blue-400">
-                  Learn More
+                <Link
+                  href={""}
+                  className="inline-flex items-center mt-3 text-blue-400"
+                >
+                  Learn Mores
                   <svg
                     fill="none"
                     stroke="currentColor"
@@ -125,7 +131,10 @@ const CardBlog = () => {
                   Blue bottle crucifix vinyl post-ironic four dollar toast vegan
                   taxidermy. Gastropub indxgo juice poutine.
                 </p>
-                <Link className="inline-flex items-center mt-3 text-blue-400">
+                <Link
+                  href={""}
+                  className="inline-flex items-center mt-3 text-blue-400"
+                >
                   Learn More
                   <svg
                     fill="none"
