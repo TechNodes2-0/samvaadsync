@@ -6,10 +6,13 @@ import YourMessage from "./components/YourMessage";
 import { getUserById } from "@/lib/actions/user.action";
 import { useContext, useEffect, useRef, useState } from "react";
 import io from "socket.io-client";
-import { useRouter } from "next/navigation";
 import translateText from "@/utils/translateText";
+import ReactMarkdown from "react-markdown";
+
 import { LanguageContext } from "../context/SelectLanguage";
 import { getMessages } from "@/lib/actions/message.action";
+import getAnswer from "@/lib/actions/bard.action";
+// import getAnswer from "@/lib/actions/bard.action";
 function page() {
   const [user, setUser] = useState(null); // Set initial state to null
   const [dataBaseMessages, setDataBaseMessages] = useState([]);
@@ -22,6 +25,7 @@ function page() {
   const socketRef = useRef();
   const [selectedLang, setSelectedLang] = useContext(LanguageContext);
   const [loadingMessages, setLoadingMessages] = useState(true);
+  const [attachmentResponse, setAttachmentResponse] = useState(null);
 
   const handleUserClick = (clickedUserId) => {
     setReceiver(clickedUserId);
@@ -29,6 +33,27 @@ function page() {
 
   const clearReceiverSocketId = () => {
     setReceiver(null);
+  };
+
+  const handleAttachmentClick = async () => {
+    console.log("Handling attachment click...");
+    if (!receiver || !user) {
+      console.log("Invalid input or missing data.");
+      return;
+    }
+
+    try {
+      console.log("Fetching answer...");
+      console.log(user._id, receiver);
+      const answer = await getAnswer(user._id, receiver._id);
+      console.log("Fetched answer:", answer);
+      setAttachmentResponse(answer);
+      // Display the answer on the page or handle it as needed
+      // For example, you can update the state to show the response.
+    } catch (error) {
+      console.error("Error fetching answer:", error);
+      // Handle the error appropriately (e.g., show an error message).
+    }
   };
 
   const sendMessage = async () => {
@@ -216,10 +241,13 @@ function page() {
               sendMessage={sendMessage}
               clearReceiverSocketId={clearReceiverSocketId}
               user={user}
+              attachmentResponse={attachmentResponse}
+              handleAttachmentClick={handleAttachmentClick}
             />
           ) : (
-            <div className="flex flex-col flex-auto flex-shrink-0 h-full p-4 bg-gray-100 rounded-2xl w-screen">
-              Select User
+            <div className="flex flex-col justify-center items-center h-full p-4 bg-gray-100 rounded-2xl w-screen font-semibold text-md">
+            <img className="w-20 " src="https://th.bing.com/th/id/OIP.az5pc-KWVPb_YacejN_M7AHaHa?w=168&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7" alt="" />
+              Select Conversation to start chat
             </div>
           )}
         </div>
@@ -227,6 +255,7 @@ function page() {
     </div>
   );
 }
+
 const ChatInterface = ({
   messageList,
   currentMessage,
@@ -234,32 +263,45 @@ const ChatInterface = ({
   sendMessage,
   clearReceiverSocketId,
   user,
+  attachmentResponse, // Assuming you have attachmentResponse in the props
+  handleAttachmentClick, // Assuming you have handleAttachmentClick in the props
 }) => (
   <div className="flex flex-col flex-auto flex-shrink-0 h-full p-4 bg-gray-100 rounded-2xl">
     <div className="flex flex-col h-full mb-4 overflow-x-auto">
       <div className="flex flex-col h-full">
-        {messageList.map((message, index) =>
-          message.author._id === user?._id ? (
-            <YourMessage
-              index={index}
-              messageContent={message?.message}
-              username={user?.username}
-              timestamp={message?.timestamp}
-            />
-          ) : (
-            <ReceivedMessage
-              index={index}
-              messageContent={message?.message}
-              username={message?.author.username}
-              timestamp={message?.timestamp}
-            />
+        {attachmentResponse ? (
+          <div className="flex flex-col flex-auto h-full p-6">
+            <ReactMarkdown>{attachmentResponse}</ReactMarkdown>
+          </div>
+        ) : (
+          messageList.map((message, index) =>
+            message.author._id === user?._id ? (
+              <YourMessage
+                key={index} // Add a key to avoid React warnings
+                index={index}
+                messageContent={message?.message}
+                username={user?.username}
+                timestamp={message?.timestamp}
+              />
+            ) : (
+              <ReceivedMessage
+                key={index} // Add a key to avoid React warnings
+                index={index}
+                messageContent={message?.message}
+                username={message?.author.username}
+                timestamp={message?.timestamp}
+              />
+            )
           )
         )}
       </div>
     </div>
     <div className="flex flex-row items-center w-full h-16 px-4 bg-white rounded-xl">
       <div>
-        <button className="flex items-center justify-center text-gray-400 hover:text-gray-600">
+        <button
+          className="flex items-center justify-center text-red-900 hover:text-gray-600"
+          onClick={handleAttachmentClick}
+        >
           <svg
             className="w-5 h-5"
             fill="none"

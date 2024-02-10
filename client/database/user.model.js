@@ -1,6 +1,6 @@
-import { Schema, models, model, Document } from "mongoose";
+import mongoose from "mongoose";
 
-const UserSchema = new Schema({
+const UserSchema = new mongoose.Schema({
   clerkId: { type: String, required: true },
   name: { type: String, required: true },
   username: { type: String, required: true, unique: true },
@@ -10,6 +10,6 @@ const UserSchema = new Schema({
   joinedAt: { type: Date, default: Date.now },
 });
 
-const User = models.User || model("User", UserSchema);
+const User = mongoose.models.User || mongoose.model("User", UserSchema);
 
 export default User;

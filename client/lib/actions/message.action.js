@@ -5,7 +5,6 @@ import Message from "@/database/messages.model";
 import { revalidatePath } from "next/cache";
 
 export const getMessages = async (authorId) => {
-  console.log("Getting Message", authorId);
   try {
     await connectToDatabase();
     const messages = await Message.find({
