@@ -1,28 +1,27 @@
 // PrelineScript.jsx
 "use client";
 
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 export default function PrelineScript() {
   const path = usePathname();
+  const router = useRouter();
 
   useEffect(() => {
     // Dynamically import the "preline/preline" module
     import("preline/preline").then((preline) => {
       // Assuming preline provides access to HSStaticMethods or similar
-      // This part depends on how preline exposes its functionalities
-      window.HSStaticMethods = preline.HSStaticMethods;
-    });
-  }, []);
+      router.HSStaticMethods = preline.HSStaticMethods;
 
-  useEffect(() => {
-    setTimeout(() => {
-      if (window.HSStaticMethods && window.HSStaticMethods.autoInit) {
-        window.HSStaticMethods.autoInit();
-      }
-    }, 100);
-  }, [path]);
+      // Initialize immediately after setting HSStaticMethods
+      setTimeout(() => {
+        if (router.HSStaticMethods?.autoInit) {
+          router.HSStaticMethods.autoInit();
+        }
+      }, 100);
+    });
+  }, [path]); // Depend on path to re-trigger effect if path changes
 
   // This component renders nothing
   return null;

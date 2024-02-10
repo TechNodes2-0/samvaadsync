@@ -8,7 +8,7 @@ export default authMiddleware({
     "/api/webhook/stripe",
     "/api/uploadthing",
   ],
-  ignoredRoutes: ["/api/webhook"],
+  ignoredRoutes: ["/api/webhook", "/api/email"],
 });
 
 export const config = {

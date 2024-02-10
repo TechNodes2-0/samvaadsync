@@ -7,12 +7,12 @@ import HighitlightText from "./HighitlightText";
 import { UserButton } from "@clerk/nextjs";
 
 import { LanguageContext } from "@/app/(root)/context/SelectLanguage";
-
 import { SignedOut, SignedIn, SignOutButton } from "@clerk/nextjs";
 import { useRouter, useSearchParams } from "next/navigation";
+
 export default function Navbar() {
-  const [selectedLang, setSelectedLang] = useContext(LanguageContext);
   const [isOpen, setOpen] = useState(false);
+  const [selectedLang, setSelectedLang] = useContext(LanguageContext);
   const searchParams = useSearchParams();
   const OUT = searchParams.get("signout");
   console.log(OUT);
