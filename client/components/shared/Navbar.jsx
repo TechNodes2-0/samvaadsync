@@ -1,18 +1,39 @@
 "use client";
+import { useRef, useEffect } from "react";
 import { NavLinks } from "@/constants";
 import React, { useContext, useState } from "react";
 import Link from "next/link";
 import HighitlightText from "./HighitlightText";
 import { UserButton } from "@clerk/nextjs";
+
 import { LanguageContext } from "@/app/(root)/context/SelectLanguage";
 
 export default function Navbar() {
   const [isOpen, setOpen] = useState(false);
   const [selectedLang, setSelectedLang] = useContext(LanguageContext);
 
+
+import { SignedOut,SignedIn,SignOutButton} from "@clerk/nextjs";
+import { useRouter, useSearchParams } from "next/navigation";
+export default function Navbar() {
+  const [isOpen, setOpen] = useState(false);
+  const searchParams = useSearchParams();
+  const OUT = searchParams.get("signout");
+  console.log(OUT);
+  const buttonRef = useRef(null);
+
   const toggle = () => {
     setOpen(!isOpen);
   };
+  const router = useRouter();
+  useEffect(() => {
+    if (OUT === "true" && buttonRef.current) {
+      buttonRef.current.click();
+
+      router.back("/");
+    }
+  }, [OUT]);
+
   return (
     <header className="z-50 flex flex-wrap w-full py-4 text-sm bg-white sm:justify-start sm:flex-nowrap dark:bg-gray-800">
       <nav
@@ -83,6 +104,7 @@ export default function Navbar() {
                 {link.title}
               </Link>
             ))}
+
             <div className="flex flex-col gap-5 mt-5 sm:flex-row sm:items-center sm:justify-end sm:mt-0 sm:ps-5">
               <label
                 htmlFor="countries"
@@ -106,6 +128,16 @@ export default function Navbar() {
                 <option value="pa">ਪੰਜਾਬੀ (Punjabi)</option>
               </select>
             </div>
+
+              <SignedIn>
+              <UserButton afterSignOutUrl="/" />
+              <div>
+              <SignOutButton>
+                <button ref={buttonRef}>Sign out</button>
+              </SignOutButton>
+            </div>
+              </SignedIn>
+
 
             <div>
               <div
@@ -184,7 +216,18 @@ export default function Navbar() {
                 </div>
               </div>
             </div>
-            <UserButton afterSignOutUrl="/" />
+           
+            <SignedOut>
+          <div className="flex items-center space-x-4">
+            <Link className="text-base" href="/sign-in">
+              Login
+            </Link>
+            <button className="inline-flex items-center justify-center h-10 px-4 py-2 text-sm font-medium transition-colors bg-blue-600 rounded-md whitespace-nowrap ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 text-primary-foreground hover:bg-blue-700">
+              Sign Up
+            </button>
+          </div>
+        </SignedOut>
+       
           </div>
         </div>
       </nav>

@@ -3,9 +3,11 @@ import Link from "next/link";
 import Image from "next/image";
 import { getUserById } from "@/lib/actions/user.action";
 import { getTimeSinceJoining } from "@/utils";
+import { currentUser } from "@clerk/nextjs";
 
 export default async function page() {
-  const user = await getUserById("user_2c2AeGhbDRs0ahqDm43IqYM65N9");
+  const userid = await currentUser();
+  const user = await getUserById(userid.id);
   console.log(user);
 
   return (
