@@ -7,10 +7,8 @@ export default function page() {
   return (
     <div>
       <Navbar />
-
       <HeroSection />
       <CardBlog />
-      {/* <FAQ /> */}
       <Footer />
     </div>
   );
