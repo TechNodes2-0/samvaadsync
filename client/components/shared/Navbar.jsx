@@ -1,5 +1,5 @@
 "use client";
-import { useRef, useEffect } from "react";
+import { useRef, useffect } from "react";
 import { NavLinks } from "@/constants";
 import React, { useContext, useState } from "react";
 import Link from "next/link";
@@ -8,27 +8,10 @@ import { UserButton } from "@clerk/nextjs";
 
 import { LanguageContext } from "@/app/(root)/context/SelectLanguage";
 import { SignedOut, SignedIn, SignOutButton } from "@clerk/nextjs";
-import { useRouter, useSearchParams } from "next/navigation";
 
 export default function Navbar() {
   const [isOpen, setOpen] = useState(false);
   const [selectedLang, setSelectedLang] = useContext(LanguageContext);
-  const searchParams = useSearchParams();
-  const OUT = searchParams.get("signout");
-  console.log(OUT);
-  const buttonRef = useRef(null);
-
-  const toggle = () => {
-    setOpen(!isOpen);
-  };
-  const router = useRouter();
-  useEffect(() => {
-    if (OUT === "true" && buttonRef.current) {
-      buttonRef.current.click();
-
-      router.back("/");
-    }
-  }, [OUT]);
 
   return (
     <header className="z-50 flex flex-wrap w-full py-4 text-sm bg-white sm:justify-start sm:flex-nowrap dark:bg-gray-800">
@@ -50,7 +33,6 @@ export default function Navbar() {
               data-hs-collapse="#navbar-collapse-with-animation"
               aria-controls="navbar-collapse-with-animation"
               aria-label="Toggle navigation"
-              onClick={toggle}
             >
               <svg
                 className="flex-shrink-0 w-4 h-4 hs-collapse-open:hidden"
@@ -129,7 +111,7 @@ export default function Navbar() {
               <UserButton afterSignOutUrl="/" />
               <div>
                 <SignOutButton>
-                  <button ref={buttonRef}>Sign out</button>
+                  <button>Sign out</button>
                 </SignOutButton>
               </div>
             </SignedIn>
