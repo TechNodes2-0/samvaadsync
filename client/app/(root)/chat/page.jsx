@@ -218,8 +218,9 @@ function page() {
               user={user}
             />
           ) : (
-            <div className="flex flex-col flex-auto flex-shrink-0 h-full p-4 bg-gray-100 rounded-2xl w-screen">
-              Select User
+            <div className="flex flex-col justify-center items-center h-full p-4 bg-gray-100 rounded-2xl w-screen font-semibold text-md">
+            <img className="w-20 " src="https://th.bing.com/th/id/OIP.az5pc-KWVPb_YacejN_M7AHaHa?w=168&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7" alt="" />
+              Select Conversation to start chat
             </div>
           )}
         </div>
