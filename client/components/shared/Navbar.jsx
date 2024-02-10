@@ -90,14 +90,11 @@ export default function Navbar() {
               </label>
               <select
                 value={selectedLang}
-                defaultValue="en"
                 id="countries"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 onChange={(e) => setSelectedLang(e.target.value)}
               >
-                <option value="en" defaultValue>
-                  English (Default)
-                </option>
+                <option value="en">English (Default)</option>
                 <option value="ja">日本語 (Japanese)</option>
                 <option value="hi">हिन्दी (Hindi)</option>
                 <option value="gu">ગુજરાતી (Gujarati)</option>
