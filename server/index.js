@@ -83,8 +83,9 @@ io.on("connection", (socket) => {
     try {
       const { author, receiver, message, type, mineType, fileName } = data;
       const playerId = uuidv4();
-      const secretKey = receiver._id + author._id;
-      console.log("This is secretkey", receiver._id, author._id, secretKey);
+      // const secretKey = receiver._id + author._id;
+      const secretKey = "9898114851";
+      // console.log("This is secretkey", receiver._id, author._id, secretKey);
       const encryptedData = CryptoJS.AES.encrypt(message, secretKey);
       const addMessageResponse = await addMessage(
         author,

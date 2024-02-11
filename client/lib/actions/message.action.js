@@ -16,7 +16,8 @@ export const getMessages = async (authorId) => {
     });
 
     const decryptedMessages = populatedMessages.map((message) => {
-      const secretKey = message.receiver._id + message.author._id;
+      // const secretKey = message.receiver._id + message.author._id;
+      const secretKey = "9898114851";
       console.log(
         "secretKey",
         message.receiver._id,

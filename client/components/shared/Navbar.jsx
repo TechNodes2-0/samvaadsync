@@ -82,12 +82,6 @@ export default function Navbar() {
             ))}
 
             <div className="flex flex-col gap-5 mt-5 sm:flex-row sm:items-center sm:justify-end sm:mt-0 sm:ps-5">
-              <label
-                htmlFor="countries"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-              >
-                Select an option
-              </label>
               <select
                 value={selectedLang}
                 id="countries"
