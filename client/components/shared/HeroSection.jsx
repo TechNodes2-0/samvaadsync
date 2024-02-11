@@ -19,8 +19,9 @@ export default async function HeroSection() {
             />
           </h1>
           <p className="px-0 mb-8 text-lg text-gray-600 dark:text-white md:text-xl lg:px-24">
-            Break language barriers with SamvaadSync: AI for easy chatting &
-            video calls in any language!
+            Uniting India with AI-Powered Sign Language Recognition, Instant
+            Language Translation, and Enhanced Chatting & Video Calling
+            Features.
           </p>
 
           <div className="mb-4 space-x-0 md:space-x-2 md:mb-8">
