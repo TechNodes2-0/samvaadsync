@@ -4,7 +4,7 @@ module.exports = {
   VONAGE_API_SECRET: "ef4a56b021dab421d337f97a69b42b08babe08a3",
 
   // The URL of the running application without "https://" and trailing "/" (ex. abc123.com). This must be a publically available URL on the internet.
-  APP_DOMAIN: "chatapp.loca.lt",
+  APP_DOMAIN: "video-server-788j.onrender.com",
 
   // Replace with your own subscription key, service region (e.g., "westus"),
   // and recognition language. Can be found in the dashboard: https://portal.azure.com/
