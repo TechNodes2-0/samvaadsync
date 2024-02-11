@@ -11,7 +11,7 @@ import ReactMarkdown from "react-markdown";
 
 import { LanguageContext } from "../context/SelectLanguage";
 import { getMessages } from "@/lib/actions/message.action";
-import getAnswer from "@/lib/actions/bard.action";
+import   from "@/lib/actions/bard.action";
 import Image from "next/image";
 import { set } from "mongoose";
 function page() {
@@ -46,7 +46,8 @@ function page() {
     try {
       console.log("Fetching answer...");
       console.log(user._id, receiver);
-      const answer = await getAnswer(user._id, receiver._id);
+      console.log("receiver", receiver);
+      const answer = await  (user._id, receiver.userId);
       console.log("Fetched answer:", answer);
       setAttachmentResponse(answer);
       // Display the answer on the page or handle it as needed
