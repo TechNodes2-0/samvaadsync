@@ -35,36 +35,6 @@ export default async function page() {
             {getTimeSinceJoining(user?.joinedAt)}
           </p>
         </div>
-        <div className="flex flex-col items-start justify-start flex-1 px-8 mt-2">
-          <div className="flex items-center mt-2 space-x-4">
-            <button className="flex items-center px-4 py-2 space-x-2 text-sm text-gray-100 transition duration-100 bg-blue-600 rounded hover:bg-blue-700">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="w-4 h-4"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-              >
-                <path d="M8 9a3 3 0 100-6 3 3 0 000 6zM8 11a6 6 0 016 6H2a6 6 0 016-6zM16 7a1 1 0 10-2 0v1h-1a1 1 0 100 2h1v1a1 1 0 102 0v-1h1a1 1 0 100-2h-1V7z"></path>
-              </svg>
-              <span>Connect</span>
-            </button>
-            <button className="flex items-center px-4 py-2 space-x-2 text-sm text-gray-100 transition duration-100 bg-blue-600 rounded hover:bg-blue-700">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="w-4 h-4"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M18 5v8a2 2 0 01-2 2h-5l-5 4v-4H4a2 2 0 01-2-2V5a2 2 0 012-2h12a2 2 0 012 2zM7 8H5v2h2V8zm2 0h2v2H9V8zm6 0h-2v2h2V8z"
-                  clipRule="evenodd"
-                ></path>
-              </svg>
-              <span>Message</span>
-            </button>
-          </div>
-        </div>
       </div>
 
       <div className="flex flex-col my-4 space-y-4 2xl:flex-row 2xl:space-y-0 2xl:space-x-4">
@@ -178,13 +148,14 @@ export default async function page() {
           <div className="flex-1 p-8 bg-white rounded-lg shadow-xl">
             <h4 className="text-xl font-bold text-gray-900">About</h4>
             <p className="mt-2 text-gray-700">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt
-              voluptates obcaecati numquam error et ut fugiat asperiores. Sunt
-              nulla ad incidunt laboriosam, laudantium est unde natus cum
-              numquam, neque facere. Lorem ipsum dolor sit amet consectetur
-              adipisicing elit. Ut, magni odio magnam commodi sunt ipsum eum!
-              Voluptas eveniet aperiam at maxime, iste id dicta autem odio
-              laudantium eligendi commodi distinctio!
+              I'm a software engineer on a mission to bring innovative
+              ideas to life. With a solid background in Computer Science and a
+              knack for problem-solving, I dive headfirst into every project.
+              Whether it's coding or collaborating with teams, I thrive in
+              dynamic environments. Outside of work, you'll catch me exploring
+              new tech trends, traveling to exciting destinations, and capturing
+              moments through my lens as a passionate photographer. Can't wait
+              to connect and share ideas!
             </p>
           </div>
         </div>
