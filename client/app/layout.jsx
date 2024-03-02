@@ -48,9 +48,7 @@ export default function RootLayout({ children }) {
         <PreferencesContext.Provider value={preferencesValue}>
           <LanguageContext.Provider value={[selectedLang, setSelectedLang]}>
             <html lang="en">
-              <Script src="./node_modules/preline/dist/preline.js"></Script>
               <body className={inter.className}>{children}</body>
-              {/* <Alan /> */}
               <PrelineScript />
             </html>
           </LanguageContext.Provider>

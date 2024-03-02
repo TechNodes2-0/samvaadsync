@@ -28,7 +28,6 @@ const ImageGenerator = () => {
       .generate(model, input)
       .then((response) => {
         // Handle the response from the API
-        console.log("Generated content:", response);
         setGeneratedContent(response);
       })
       .catch((error) => {

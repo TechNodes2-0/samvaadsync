@@ -1,9 +1,7 @@
 "use client";
-import { useAuth } from "@clerk/nextjs";
 import ReceivedMessage from "./components/ReceivedMessage";
 import SideBar from "./components/SideBar";
 import YourMessage from "./components/YourMessage";
-import { getUserById } from "@/lib/actions/user.action";
 import { useContext, useEffect, useRef, useState } from "react";
 import io from "socket.io-client";
 import translateText from "@/utils/translateText";
@@ -11,22 +9,23 @@ import ReactMarkdown from "react-markdown";
 
 import { LanguageContext } from "../context/SelectLanguage";
 import { getMessages } from "@/lib/actions/message.action";
-import getAnswer from "@/lib/actions/bard.action";
 import Image from "next/image";
-import { get, set } from "mongoose";
+import { useUser } from "@/context/User.context";
+import { useRouter } from "next/navigation";
+import ChatSummary from "./components/ChatSummary";
+import formattedMessage from "@/utils/formattedMessage";
+
 function page() {
-  const [user, setUser] = useState(null); // Set initial state to null
-  const [dataBaseMessages, setDataBaseMessages] = useState([]);
   const [currentMessage, setCurrentMessage] = useState("");
   const [messageList, setMessageList] = useState([]);
-  const [file, setFile] = useState(null); // Set initial state to null
   const [receiver, setReceiver] = useState(null);
-  const { userId } = useAuth();
   const [onlineUsers, setOnlineUsers] = useState(null);
   const socketRef = useRef();
   const [selectedLang, setSelectedLang] = useContext(LanguageContext);
-  const [loadingMessages, setLoadingMessages] = useState(true);
-  const [attachmentResponse, setAttachmentResponse] = useState(null);
+  const [showSummary, setShowSummary] = useState(false);
+  const { user } = useUser();
+  const router = useRouter();
+  console.log("user", user);
 
   const handleUserClick = (clickedUserId) => {
     setReceiver(clickedUserId);
@@ -36,126 +35,87 @@ function page() {
     setReceiver(null);
   };
 
-  const handleAttachmentClick = async () => {
-    console.log("Handling attachment click...");
+  const generateSummary = async () => {
     if (!receiver || !user) {
       console.log("Invalid input or missing data.");
       return;
     }
 
-    try {
-      console.log("Fetching answer...");
-      console.log(user._id, receiver);
-      console.log("receiver", receiver);
-      const answer = await getAnswer(user._id, receiver.userId);
-      console.log("Fetched answer:", answer);
-      setAttachmentResponse(answer);
-      // Display the answer on the page or handle it as needed
-      // For example, you can update the state to show the response.
-    } catch (error) {
-      console.error("Error fetching answer:", error);
-      // Handle the error appropriately (e.g., show an error message).
-    }
+    // Your logic to generate attachment response
+
+    setShowSummary(true);
   };
 
   const sendMessage = async () => {
-    console.log("Sending message...");
-
-    if (currentMessage.trim() === "" || !receiver || !user || !userId) {
+    if (currentMessage.trim() === "" || !receiver || !user) {
       console.log("Invalid input or missing data. Message not sent.");
       return;
     }
 
-    if (file) {
-      // ... (unchanged code for file handling)
-    } else {
-      console.log("Processing text message...");
+    const messageData = {
+      receiver: {
+        username: receiver?.username,
+        socketId: receiver?.socketId || "",
+        _id: receiver?.userId,
+      },
+      author: {
+        username: user?.username,
+        socketId: socketRef.current.id || "",
+        _id: user?._id,
+      },
+      message: currentMessage,
+      type: "text",
+      timestamp: new Date().toISOString(),
+    };
 
-      const messageData = {
-        receiver: {
-          username: receiver?.username,
-          socketId: receiver?.socketId || "",
-          _id: receiver?.userId,
-        },
-        author: {
-          username: user?.username,
-          socketId: socketRef.current.id || "",
-          _id: user?._id,
-        },
-        message: currentMessage,
-        type: "text",
-        timestamp: new Date().toISOString(),
-      };
+    let translatedMessageData = { ...messageData };
 
-      let translatedMessageData = { ...messageData };
-
-      if (selectedLang !== "en") {
-        console.log("Translating message...");
-        const translatedText = await translateText(
-          currentMessage,
-          selectedLang,
-          "en"
-        );
-        translatedMessageData.message = translatedText?.translatedText;
-        console.log("Translation complete:", translatedText);
-      }
-
-      console.log("Emitting 'send_message' event...");
-
-      socketRef.current.emit("send_message", translatedMessageData, (cb) => {
-        console.log("'send_message' event callback received:", cb);
-
-        const updatedMessageList = [
-          ...messageList,
-          {
-            ...messageData,
-            author: { username: user.username, _id: user._id },
-            receiver: { _id: receiver.userId, username: receiver.username },
-            playerId: cb.playerId,
-          },
-        ];
-
-        console.log("Updating message list:", updatedMessageList);
-        setMessageList(updatedMessageList);
-      });
-
-      console.log("Message sent successfully.");
-      setCurrentMessage("");
+    if (selectedLang !== "en") {
+      const translatedText = await translateText(
+        currentMessage,
+        selectedLang,
+        "en"
+      );
+      translatedMessageData.message = translatedText?.translatedText;
     }
+
+    socketRef.current.emit("send_message", translatedMessageData, (cb) => {
+      const updatedMessageList = [
+        ...messageList,
+        {
+          ...messageData,
+          author: { username: user.username, _id: user._id },
+          receiver: { _id: receiver.userId, username: receiver.username },
+          playerId: cb.playerId,
+        },
+      ];
+
+      setMessageList(updatedMessageList);
+    });
+
+    setCurrentMessage("");
   };
 
   useEffect(() => {
     const fetchMessages = async () => {
       try {
-        console.log("Fetching messages...");
         const messages = await getMessages(user?._id);
-        console.log("Fetched messages:", messages);
 
         const translatedMessages = await Promise.all(
           messages.map(async (message) => {
             if (message.type === "text" && selectedLang !== "en") {
-              console.log(
-                "Translating message:",
-                message.message,
-                "from 'en' to",
-                selectedLang
-              );
               const translatedText = await translateText(
                 message.message,
                 "en",
                 selectedLang
               );
               message.message = translatedText?.translatedText;
-              console.log("Translation complete:", translatedText);
             }
             return message;
           })
         );
 
-        console.log(
-          "Setting translated messages to state:",
-          translatedMessages
-        );
+        console.log(translatedMessages);
         setMessageList(translatedMessages);
       } catch (e) {
         console.error("Error fetching messages:", e);
@@ -165,29 +125,13 @@ function page() {
       }
     };
 
-    const fetchUser = async () => {
-      console.log("Fetching user...");
-      const fetchedUser = await getUserById(userId);
-      console.log("Fetched user:", fetchedUser);
-      setUser(fetchedUser);
-    };
+    // Only run the fetchMessages effect once when the component mounts
 
-    console.log(
-      "Starting useEffect for userId and selectedLang:",
-      userId,
-      selectedLang
-    );
-
-    fetchUser();
     fetchMessages();
-
-    return () => {
-      console.log("Cleaning up useEffect...");
-    };
-  }, [userId, selectedLang]);
+  }, [selectedLang]);
 
   useEffect(() => {
-    socketRef.current = io("https://htf-socket-server.onrender.com");
+    socketRef.current = io("http://localhost:5000");
     socketRef.current.emit("new-user-add", user?._id, user?.username);
     socketRef.current.on("get-users", (users) => {
       setOnlineUsers(users);
@@ -200,7 +144,6 @@ function page() {
 
   useEffect(() => {
     const handleReceiveMessage = async (data) => {
-      console.log("Message Recieved", data);
       if (data.type === "text" && selectedLang !== "en") {
         const translatedText = await translateText(
           data.message,
@@ -219,46 +162,53 @@ function page() {
   }, [selectedLang, socketRef.current]);
 
   return (
-    <div className="flex h-screen antialiased text-gray-800">
-      <div className="flex flex-row w-full h-full overflow-x-hidden">
-        <SideBar
-          onlineUsers={onlineUsers}
-          author={user?.username}
-          handleUserClick={handleUserClick}
-        />
-        <div className="flex flex-col flex-auto h-full p-6">
-          {receiver ? (
-            <ChatInterface
-              messageList={messageList.filter(
-                (messageList) =>
-                  (messageList.author.username === receiver.username &&
-                    messageList.receiver.username === user.username) ||
-                  (messageList.receiver.username === receiver.username &&
-                    messageList.author.username === user.username)
-              )}
-              currentMessage={currentMessage}
-              setCurrentMessage={setCurrentMessage}
-              sendMessage={sendMessage}
-              clearReceiverSocketId={clearReceiverSocketId}
-              user={user}
-              attachmentResponse={attachmentResponse}
-              handleAttachmentClick={handleAttachmentClick}
+    <>
+      {showSummary ? (
+        <>
+          <ChatSummary chat={formattedMessage(messageList)} />
+        </>
+      ) : (
+        <div className="flex h-screen antialiased text-gray-800">
+          <div className="flex flex-row w-full h-full overflow-x-hidden">
+            <SideBar
+              onlineUsers={onlineUsers}
+              author={user?.username}
+              handleUserClick={handleUserClick}
+              generateSummary={generateSummary}
             />
-          ) : (
-            <div className="flex flex-col items-center justify-center w-screen h-full p-4 font-semibold bg-gray-100 rounded-2xl text-md">
-              <Image
-                className="w-20 "
-                src="https://th.bing.com/th/id/OIP.az5pc-KWVPb_YacejN_M7AHaHa?w=168&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7"
-                alt="image"
-                width={100}
-                height={100}
-              />
-              Select Conversation to start chat
+            <div className="flex flex-col flex-auto h-full p-6">
+              {receiver ? (
+                <ChatInterface
+                  messageList={messageList.filter(
+                    (messageList) =>
+                      (messageList.author.username === receiver.username &&
+                        messageList.receiver.username === user.username) ||
+                      (messageList.receiver.username === receiver.username &&
+                        messageList.author.username === user.username)
+                  )}
+                  currentMessage={currentMessage}
+                  setCurrentMessage={setCurrentMessage}
+                  sendMessage={sendMessage}
+                  clearReceiverSocketId={clearReceiverSocketId}
+                  user={user}
+                />
+              ) : (
+                <div className="flex flex-col items-center justify-center w-screen h-full p-4 font-semibold bg-gray-100 rounded-2xl text-md">
+                  <Image
+                    className="w-20 "
+                    src="https://th.bing.com/th/id/OIP.az5pc-KWVPb_YacejN_M7AHaHa?w=168&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7"
+                    alt="image"
+                    width={100}
+                    height={100}
+                  />
+                  Select Conversation to start chat
+                </div>
+              )}
             </div>
-          )}
+          </div>
         </div>
-      </div>
-    </div>
+      )}
+    </>
   );
 }
 
@@ -269,35 +219,27 @@ const ChatInterface = ({
   sendMessage,
   clearReceiverSocketId,
   user,
-  attachmentResponse, // Assuming you have attachmentResponse in the props
-  handleAttachmentClick, // Assuming you have handleAttachmentClick in the props
 }) => (
   <div className="flex flex-col flex-auto flex-shrink-0 h-full p-4 bg-gray-100 rounded-2xl">
     <div className="flex flex-col h-full mb-4 overflow-x-auto">
       <div className="flex flex-col h-full">
-        {attachmentResponse ? (
-          <div className="flex flex-col flex-auto h-full p-6">
-            <ReactMarkdown>{attachmentResponse}</ReactMarkdown>
-          </div>
-        ) : (
-          messageList.map((message, index) =>
-            message.author._id === user?._id ? (
-              <YourMessage
-                key={index} // Add a key to avoid React warnings
-                index={index}
-                messageContent={message?.message}
-                username={user?.username}
-                timestamp={message?.timestamp}
-              />
-            ) : (
-              <ReceivedMessage
-                key={index} // Add a key to avoid React warnings
-                index={index}
-                messageContent={message?.message}
-                username={message?.author.username}
-                timestamp={message?.timestamp}
-              />
-            )
+        {messageList.map((message, index) =>
+          message.author._id === user?._id ? (
+            <YourMessage
+              key={index} // Add a key to avoid React warnings
+              index={index}
+              messageContent={message?.message}
+              username={user?.username}
+              timestamp={message?.timestamp}
+            />
+          ) : (
+            <ReceivedMessage
+              key={index} // Add a key to avoid React warnings
+              index={index}
+              messageContent={message?.message}
+              username={message?.author.username}
+              timestamp={message?.timestamp}
+            />
           )
         )}
       </div>
@@ -306,7 +248,7 @@ const ChatInterface = ({
       <div>
         <button
           className="flex items-center justify-center text-red-900 hover:text-gray-600"
-          onClick={handleAttachmentClick}
+          onClick={() => alert("Attachement")}
         >
           <svg
             className="w-5 h-5"

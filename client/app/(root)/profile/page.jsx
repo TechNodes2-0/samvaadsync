@@ -8,7 +8,6 @@ import { currentUser } from "@clerk/nextjs";
 export default async function page() {
   const userid = await currentUser();
   const user = await getUserById(userid.id);
-  console.log(user);
 
   return (
     <div className="h-full p-8 bg-gray-200">

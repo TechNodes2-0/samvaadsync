@@ -1,11 +1,13 @@
 import Navbar from "@/components/shared/Navbar";
+import RoomContextProvider from "@/context/User.context";
 
 export default function Layout({ children }) {
   return (
-    <section className="flex flex-col w-screen min-h-screen font-inter">
-      <Navbar />
-
-      {children}
-    </section>
+    <div className="flex flex-col min-h-screen font-inter">
+      <RoomContextProvider>
+        <Navbar />
+        <main>{children}</main>
+      </RoomContextProvider>
+    </div>
   );
 }

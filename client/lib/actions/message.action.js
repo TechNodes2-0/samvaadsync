@@ -18,12 +18,6 @@ export const getMessages = async (authorId) => {
     const decryptedMessages = populatedMessages.map((message) => {
       // const secretKey = message.receiver._id + message.author._id;
       const secretKey = "9898114851";
-      console.log(
-        "secretKey",
-        message.receiver._id,
-        message.author._id,
-        secretKey
-      );
 
       if (message.message) {
         const decryptedData = CryptoJS.AES.decrypt(
@@ -36,7 +30,6 @@ export const getMessages = async (authorId) => {
 
       return message;
     });
-    console.log("decryptedMessages", decryptedMessages);
     return JSON.parse(JSON.stringify(decryptedMessages));
   } catch (error) {
     console.log("Error getting messages", error);

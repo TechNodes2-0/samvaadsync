@@ -81,7 +81,6 @@ export async function POST(req) {
         lastName: last_name,
         picture: image_url,
       };
-      console.log("Creating user", user);
 
       const headers = {
         "X-API-KEY":
@@ -96,7 +95,6 @@ export async function POST(req) {
           JSON.stringify(user),
           { headers: headers }
         );
-        console.log(response.data);
         return NextResponse.json({ message: "OK", user: JSON.stringify(user) }); // Here it's okay to stringify user for the response
       } catch (error) {
         console.error("error", error);
