@@ -144,7 +144,7 @@ app.ws("/socket/:connectionId/:speaker/:spoken", (ws, req) => {
     });
     let translations = {};
     recognizer.targetLanguages.forEach((lang) => {
-      translations[lang] = e.result.translations.get(lang);
+    translations  [lang] = e.result.translations.get(lang);
     });
     console.log("translations: ", translations);
     opentok.signal(
