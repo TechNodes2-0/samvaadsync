@@ -146,9 +146,7 @@ const {PDFdocs}=req.files;
     console.log('Path:', PDFdocs.path); 
     const output= await getChunkedDocsFromPDF(PDFdocs.path);
     const client = createClient(sbUrl, sbApiKey)
-console.log("output",output);
-   
-
+console.log("output",output); 
 
 
 
@@ -163,11 +161,22 @@ const vectorStore = await ensureVectorStore(client, output, openAIApiKey,false);
 
 
 
-
+    const conversation=await   get_Conversation_chain(vectorStore,`Given a professional resume, generate a list of insightful and relevant questions a recruiter might ask the candidate during an interview. The questions should aim to explore the candidate's experiences, skills, achievements, and qualifications as presented on their resume. Consider the following categories:
+Among all these categories,give total 4 questions
+    Work Experience: Questions that delve into the candidate's responsibilities, achievements, and learnings in their previous roles.
+    Educational Background: Questions regarding the candidate's academic qualifications, special projects, and how their education has prepared them for their career.
+    Skills and Competencies: Inquiries about specific skills listed on the resume, including how the candidate has applied these skills in a professional setting.
+    Certifications and Courses: Questions about any additional certifications or courses completed by the candidate that are relevant to the job role.
+    Personal Projects and Interests: Exploratory questions about any personal projects, volunteer work, or interests listed on the resume that demonstrate the candidate's passion and commitment to their field.
+    Please craft concise and short questions that encourage the candidate to share examples and experiences from their professional journey ,dont give category of question just give questions.Give answer with md formatting`);
+       
+    console.log("Answer",conversation);
+    
+    
 
     // Optionally, move the file to a specific directory or perform other actions
 
-    res.json({ message: 'Files uploaded successfully'});
+    res.json({ message: 'Files uploaded successfully',question:conversation});
   });
 
   app.post('/getAnswer',async (req, res) => {

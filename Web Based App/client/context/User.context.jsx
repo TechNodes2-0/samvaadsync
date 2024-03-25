@@ -25,7 +25,7 @@ const RoomContextProvider = ({ children }) => {
     if (isLoaded) fetchUser();
   }, [userId, isLoaded]);
 
-  if (!isLoaded && !user) {
+  if (!isLoaded && user) {
     return <Loading />;
   }
 

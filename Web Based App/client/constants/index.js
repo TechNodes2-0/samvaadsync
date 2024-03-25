@@ -15,5 +15,9 @@ export const NavLinks = [
     route: "/profile",
     title: "profile",
   },
+  {
+    route: "/resumechat",
+    title: "ChatwithResume",
+  },
   
 ];

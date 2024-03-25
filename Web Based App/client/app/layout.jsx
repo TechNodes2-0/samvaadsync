@@ -9,6 +9,7 @@ import { UserContext } from "./(root)/context/UserContext";
 import { PreferencesContext } from "./(root)/context/PreferencesContext";
 
 import { LanguageContext } from "@/app/(root)/context/SelectLanguage";
+// Import the styles provided by the react-pdf-viewer packages
 
 const inter = Inter({ subsets: ["latin"] });
 

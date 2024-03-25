@@ -9,8 +9,8 @@ const { RecursiveCharacterTextSplitter } = require("langchain/text_splitter");
 
     // From the docs https://www.pinecone.io/learn/chunking-strategies/
     const textSplitter = new RecursiveCharacterTextSplitter({
-      chunkSize: 1000,
-      chunkOverlap: 200,
+      chunkSize: 500,
+      chunkOverlap: 70,
     });
 
     const chunkedDocs = await textSplitter.splitDocuments(docs);
