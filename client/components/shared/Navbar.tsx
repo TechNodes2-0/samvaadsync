@@ -3,7 +3,13 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { FaHamburger } from "react-icons/fa";
 import { ModeToggle } from "../ui/ModeToggle";
-import { SignedIn, SignOutButton, UserButton } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
+import {
+  SignedIn,
+  SignInButton,
+  SignOutButton,
+  UserButton,
+} from "@clerk/nextjs";
 
 type NavLink = {
   href: string;
@@ -21,7 +27,7 @@ const navLinks: NavLink[] = [
 export default function Navbar() {
   const [hasScrolled, setHasScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
+  const router = useRouter();
   useEffect(() => {
     const handleScroll = () => {
       const offset = window.scrollY;
