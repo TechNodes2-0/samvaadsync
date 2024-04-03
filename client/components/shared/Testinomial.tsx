@@ -6,7 +6,8 @@ const testimonies = [
   {
     name: "Kanye West",
     role: "Rapper & Entrepreneur",
-    message: "Find God.",
+    message:
+      "SaamvaadSync revolutionized how we communicate within our global teams. The real-time translation feature is a game-changer for our international projects.",
     imageUrl:
       "https://pbs.twimg.com/profile_images/1276461929934942210/cqNhNk6v_400x400.jpg",
     profileUrl: "https://twitter.com/kanyewest",
@@ -15,7 +16,7 @@ const testimonies = [
     name: "Tim Cook",
     role: "CEO of Apple",
     message:
-      "Diam quis enim lobortis scelerisque fermentum dui faucibus in ornare. Donec pretium vulputate sapien nec sagittis aliquam malesuada bibendum.",
+      "Integrating SaamvaadSync into our recruitment process has significantly improved our hiring efficiency. The ATS integration is seamless, and the chat with resume feature is incredibly useful.",
     imageUrl:
       "https://pbs.twimg.com/profile_images/1535420431766671360/Pwq-1eJc_400x400.jpg",
     profileUrl: "https://twitter.com/tim_cook",
@@ -24,7 +25,7 @@ const testimonies = [
     name: "Parag Agrawal",
     role: "CEO of Twitter",
     message:
-      "Enim neque volutpat ac tincidunt vitae semper. Mattis aliquam faucibus purus in massa tempor. Neque vitae tempus quam pellentesque nec. Turpis cursus in hac habitasse platea dictumst.",
+      "The ability to have live translated captions during video calls has removed language barriers within our team. SaamvaadSync is essential for any company looking to globalize.",
     imageUrl:
       "https://pbs.twimg.com/profile_images/1375285353146327052/y6jeByyD_400x400.jpg",
     profileUrl: "https://twitter.com/paraga",
@@ -33,7 +34,7 @@ const testimonies = [
     name: "Satya Nadella",
     role: "CEO of Microsoft",
     message:
-      "Tortor dignissim convallis aenean et tortor at. At ultrices mi tempus imperdiet nulla malesuada. Id cursus metus aliquam eleifend mi. Quis ipsum suspendisse ultrices gravida dictum fusce ut.",
+      "SaamvaadSync's end-to-end encryption ensures that our communications are secure. This, combined with the smart candidate search, has made it an indispensable tool for our HR department.",
     imageUrl:
       "https://pbs.twimg.com/profile_images/1221837516816306177/_Ld4un5A_400x400.jpg",
     profileUrl: "https://twitter.com/satyanadella",
@@ -42,7 +43,7 @@ const testimonies = [
     name: "Dan Schulman",
     role: "CEO of PayPal",
     message:
-      "Quam pellentesque nec nam aliquam sem et tortor consequat id. Enim sit amet venenatis urna cursus.",
+      "The document verification feature has streamlined our onboarding process, making it faster and more secure. SaamvaadSync is truly innovative in solving real-world recruitment challenges.",
     imageUrl:
       "https://pbs.twimg.com/profile_images/516916920482672641/3jCeLgFb_400x400.jpeg",
     profileUrl: "https://twitter.com/dan_schulman",
