@@ -1,18 +1,21 @@
+"use client";
 import Link from "next/link";
 import React from "react";
 import Image from "next/image";
 import HighitlightText from "./HighitlightText";
 import GradientBg from "./GradientBg";
 import { Button } from "../ui/button";
+import { useRouter } from "next/navigation";
 
-export default async function HeroSection() {
+export default function HeroSection() {
+  const router = useRouter();
+
   return (
     <section className="pt-24 dark:bg-slate-900 dark:text-white">
       <GradientBg />
       <div className="px-12 mx-auto max-w-7xl">
         <div className="w-full mx-auto text-left md:w-11/12 xl:w-9/12 md:text-center">
           <h1 className="mb-8 text-4xl lg:text-7xl font-extrabold  tracking-normal text-gray-700 dark:text-white md:text-6xl  md:tracking-tight md:leading-[4.35rem]">
-            {/* <span className="text-center text-7xl">SamvaadSync</span>{" "} */}
             <HighitlightText text="SamvaadSync" />
           </h1>
           <p className="px-0 mb-8 text-lg text-gray-600 dark:text-white md:text-xl lg:px-24">
@@ -22,8 +25,10 @@ export default async function HeroSection() {
           </p>
 
           <div className="mb-4 space-x-0 md:space-x-2 md:mb-8">
-            <Link
-              href="chat"
+            <Button
+              onClick={() => {
+                router.push("/chat");
+              }}
               className="inline-flex items-center justify-center w-full px-6 py-3 mb-2 text-lg text-white bg-blue-400 dark:bg-blue-500 rounded-2xl sm:w-auto sm:mb-0"
             >
               Get Started
@@ -39,8 +44,8 @@ export default async function HeroSection() {
                   clipRule="evenodd"
                 ></path>
               </svg>
-            </Link>
-            <Button className="inline-flex items-center justify-center w-full px-6 py-3 mb-2 text-lg bg-gray-100 dark:bg-blue-400 rounded-2xl sm:w-auto sm:mb-0">
+            </Button>
+            <Button variant={"outline"}>
               Learn More
               <svg
                 className="w-4 h-4 ml-1"
@@ -57,6 +62,15 @@ export default async function HeroSection() {
                 ></path>
               </svg>
             </Button>
+          </div>
+          <div className="mt-24 w-full flex flex-col justify-center items-center rounded-lg border bg-foreground/5 p-2">
+            <Image
+              alt="App Image"
+              width={1920}
+              height={1080}
+              className="shadow-[0_0_1000px_0] shadow-primary/40 dark:shadow-sky-400/40 animate-in zoom-in-75 delay-300 duration-1000 ease-out fill-mode-both text-transparent"
+              src="/2tb.png"
+            />
           </div>
         </div>
       </div>

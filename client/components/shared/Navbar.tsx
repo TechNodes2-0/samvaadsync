@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { FaHamburger } from "react-icons/fa";
 import { ModeToggle } from "../ui/ModeToggle";
+import { SignedIn, SignOutButton, UserButton } from "@clerk/nextjs";
 
 type NavLink = {
   href: string;
@@ -11,12 +12,10 @@ type NavLink = {
 };
 
 const navLinks: NavLink[] = [
-  { href: "#", label: "Home", ariaCurrent: "page" },
-  { href: "#services", label: "Services" },
+  { href: "#", label: "Chat", ariaCurrent: "page" },
+  { href: "#Video", label: "Video" },
   { href: "#about", label: "About" },
-  { href: "#projects", label: "Projects" },
-  { href: "#reviews", label: "Reviews" },
-  { href: "#contact", label: "Contact" },
+  { href: "Login", label: "Login" },
 ];
 
 export default function Navbar() {
@@ -54,7 +53,7 @@ export default function Navbar() {
             aria-label="Portfolio"
             className="flex-none text-xl font-semibold dark:text-white text-n-9"
           >
-            Portfolio
+            SamvaadSync
           </Link>
           <button
             className="sm:hidden"
@@ -81,7 +80,16 @@ export default function Navbar() {
                 {link.label}
               </Link>
             ))}
+
             <ModeToggle />
+            <SignedIn>
+              <UserButton afterSignOutUrl="/" />
+              <div>
+                <SignOutButton>
+                  <button>Sign out</button>
+                </SignOutButton>
+              </div>
+            </SignedIn>
           </div>
         </div>
       </nav>
