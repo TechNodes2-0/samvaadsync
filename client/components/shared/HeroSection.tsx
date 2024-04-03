@@ -6,12 +6,13 @@ import HighitlightText from "./HighitlightText";
 import GradientBg from "./GradientBg";
 import { Button } from "../ui/button";
 import { useRouter } from "next/navigation";
+import Section from "./Section";
 
 export default function HeroSection() {
   const router = useRouter();
 
   return (
-    <section className="pt-24 dark:bg-slate-900 dark:text-white">
+    <Section className="pt-24 dark:bg-slate-900 dark:text-white">
       <GradientBg />
       <div className="px-12 mx-auto max-w-7xl">
         <div className="w-full mx-auto text-left md:w-11/12 xl:w-9/12 md:text-center">
@@ -29,7 +30,6 @@ export default function HeroSection() {
               onClick={() => {
                 router.push("/chat");
               }}
-              className="inline-flex items-center justify-center w-full px-6 py-3 mb-2 text-lg text-white bg-blue-400 dark:bg-blue-500 rounded-2xl sm:w-auto sm:mb-0"
             >
               Get Started
               <svg
@@ -74,6 +74,6 @@ export default function HeroSection() {
           </div>
         </div>
       </div>
-    </section>
+    </Section>
   );
 }
