@@ -45,7 +45,7 @@ export default function Navbar() {
     <header
       className={`sticky top-0 z-50 w-full ${
         hasScrolled
-          ? "bg-[rgba(255,255,255,0.1)] dark:bg-gray-900 backdrop-blur-lg border-b border-gray-200 dark:border-gray-600 text-black"
+          ? "bg-[rgba(255,255,255,0.1)] dark:bg-gray-900 backdrop-blur-lg border-b border-gray-200 dark:border-gray-600 "
           : "bg-transparent"
       } text-sm py-3 sm:py-0 transition-all duration-300`}
     >
@@ -76,7 +76,7 @@ export default function Navbar() {
             isMobileMenuOpen ? "block" : "hidden"
           } overflow-hidden transition-all duration-300 basis-full grow sm:block`}
         >
-          <div className="flex flex-col gap-y-4 gap-x-0 mt-5 sm:flex-row sm:items-center sm:justify-end sm:gap-y-0 sm:gap-x-7 sm:mt-0 sm:ps-7">
+          <div className="flex flex-col pr-1 gap-y-4 gap-x-0 mt-5 sm:flex-row sm:items-center sm:justify-end sm:gap-y-0 sm:gap-x-7 sm:mt-0 sm:ps-7">
             {navLinks.map((link) => (
               <Link
                 key={link.label}
