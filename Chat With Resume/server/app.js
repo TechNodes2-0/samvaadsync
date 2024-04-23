@@ -30,7 +30,8 @@ const sbApiKey = process.env.SUPABASE_API_KEY
 const sbUrl = process.env.SUPABASE_URL_LC_CHATBOT
 const openAIApiKey = process.env.OPENAI_API_KEY
 const app = express();
-const port = 5000;
+const port = 5001
+;
 
 
 app.use(cors()); // Enable CORS

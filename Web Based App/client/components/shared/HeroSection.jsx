@@ -12,7 +12,7 @@ export default async function HeroSection() {
       <div className="px-12 mx-auto max-w-7xl">
         <div className="w-full mx-auto text-left md:w-11/12 xl:w-9/12 md:text-center">
           <h1 className="mb-8 text-4xl lg:text-7xl font-extrabold  tracking-normal text-gray-700 dark:text-white md:text-6xl  md:tracking-tight md:leading-[4.35rem]">
-            {/* <span className="text-center text-7xl">SamvaadSync</span>{" "} */}
+            <span className="text-center text-7xl">SamvaadSync</span>{" "}
             <HighitlightText
               text="SamvaadSync
 "

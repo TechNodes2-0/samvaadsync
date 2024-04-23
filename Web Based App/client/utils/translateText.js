@@ -12,8 +12,8 @@ async function translateText(textData, from, to) {
       data,
       {
         headers: {
-          "Ocp-Apim-Subscription-Key": "86c72a1543224745bc120ad76edf3014",
-          "Ocp-Apim-Subscription-Region": "eastus",
+          "Ocp-Apim-Subscription-Key": "8b8b84d748a9484dafbeaaee3c6138cf",
+          "Ocp-Apim-Subscription-Region": "eastasia",
           "Content-type": "application/json",
           "X-ClientTraceId": "uuidv4().toString()",
         },

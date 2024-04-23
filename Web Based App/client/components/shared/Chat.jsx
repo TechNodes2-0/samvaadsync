@@ -20,7 +20,7 @@ const Chat = () => {
 
     try {
       // const response = await axios.post('http://localhost:5000/getAnswer', {
-              const response = await axios.post('http://localhost:5000/getAnswer', {
+              const response = await axios.post('http://localhost:5001/getAnswer', {
    
      query
       });

@@ -45,7 +45,7 @@ const[previewUrl,setPreviewUrl]=useState('')
       
       try {
         // Make a POST request to your server endpoint
-        const response = await axios.post('http://localhost:5000/upload', formData, {
+        const response = await axios.post('http://localhost:5001/upload', formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
           },
