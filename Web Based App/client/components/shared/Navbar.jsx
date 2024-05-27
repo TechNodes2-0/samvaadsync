@@ -188,9 +188,9 @@ export default function Navbar() {
                 <Link className="text-base" href="/sign-in">
                   Login
                 </Link>
-                <button className="inline-flex items-center justify-center h-10 px-4 py-2 text-sm font-medium transition-colors bg-blue-600 rounded-md whitespace-nowrap ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 text-primary-foreground hover:bg-blue-700">
+                <Link href="/sign-up" className="inline-flex items-center justify-center h-10 px-4 py-2 text-sm font-medium transition-colors bg-blue-600 rounded-md whitespace-nowrap ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 text-primary-foreground hover:bg-blue-700">
                   Sign Up
-                </button>
+                </Link>
               </div>
             </SignedOut>
           </div>

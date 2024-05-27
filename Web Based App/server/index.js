@@ -12,6 +12,8 @@ const server = http.createServer(app);
 const tokenRoutes = require("./routes/tokenRoutes");
 const connectDB = require("./connection/db");
 const { addMessage } = require("./controllers/message");
+const documentRoutes = require("./routes/documentRoutes");
+const answerRoutes = require("./routes/answerRoutes");
 
 const io = new Server(server, {
   cors: {
@@ -25,6 +27,8 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(express.json());
+app.use("/api/document", documentRoutes);
+app.use("/api/answer", answerRoutes);
 
 let onlineUsers = [];
 
@@ -115,6 +119,7 @@ io.on("connection", (socket) => {
     io.emit("get-users", onlineUsers);
   });
 });
+
 
 server.listen(5000, async () => {
   try {

@@ -22,6 +22,7 @@
     "build": "^0.1.4",
     "crypto-js": "^4.2.0",
     "flowbite-react": "^0.7.2",
+    "localtunnel": "^2.0.2",
     "moment": "^2.30.1",
     "mongoose": "^8.1.1",
     "monsterapi": "^0.0.3",
