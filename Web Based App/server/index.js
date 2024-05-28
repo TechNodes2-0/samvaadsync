@@ -36,6 +36,7 @@ app.get("/api/get-speech-token", async (req, res, next) => {
   res.setHeader("Content-Type", "application/json");
   const speechKey = process.env.SPEECH_KEY;
   const speechRegion = process.env.SPEECH_REGION;
+  console.log("sdsd", speechKey, speechRegion);
 
   if (
     speechKey === "paste-your-speech-key-here" ||
@@ -87,9 +88,7 @@ io.on("connection", (socket) => {
     try {
       const { author, receiver, message, type, mineType, fileName } = data;
       const playerId = uuidv4();
-      // const secretKey = receiver._id + author._id;
       const secretKey = "9898114851";
-      // console.log("This is secretkey", receiver._id, author._id, secretKey);
       const encryptedData = CryptoJS.AES.encrypt(message, secretKey);
       const addMessageResponse = await addMessage(
         author,
@@ -119,7 +118,6 @@ io.on("connection", (socket) => {
     io.emit("get-users", onlineUsers);
   });
 });
-
 
 server.listen(5000, async () => {
   try {
